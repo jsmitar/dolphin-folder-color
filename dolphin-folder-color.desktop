@@ -1,0 +1,252 @@
+[Desktop Entry]
+Name=Folder Color
+
+Encoding=UTF-8
+Version=1.2
+Icon=folder-red
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=inode/directory;
+
+X-KDE-Submenu=Color folder
+X-KDE-Submenu[es]=Color
+X-KDE-Submenu[fr]=Dossier de couleur
+X-KDE-Submenu[it]=Cartella colori
+X-KDE-Submenu[pt]=Pasta Cor
+X-KDE-Submenu[de]=Farbe Ordner
+X-KDE-Priority=TopLevel
+
+Actions=custom-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-downloads;folder-image;folder-sound;folder-video;folder-txt;folder-network;folder-development;folder-bookmark;folder-favorites;
+
+[Desktop Action custom-icon]
+Name=Custom icon
+Name[es]=Icono personalizado
+Name[fr]=Icône personnalisée
+Name[it]=Icona Personalizzata
+Name[pt]=Ícone personalizado
+Name[de]=Custom Icon
+Exec=dolphin-folder-color.sh custom %U
+
+#########################################
+
+[Desktop Action folder-default]
+Name=Default
+Name[es]=Predeterminado
+Name[fr]=Défaut
+Name[it]=Difetto
+Name[pt]=Omissão
+Name[de]=Default
+Icon=folder
+Exec=dolphin-folder-color.sh default %U
+
+[Desktop Action folder-grey]
+Name=Grey
+Name[es]=Gris
+Name[fr]=Gris
+Name[it]=Grigio
+Name[pt]=Cinzento
+Name[de]=Grau
+Icon=folder-grey
+Exec=dolphin-folder-color.sh grey %U
+
+[Desktop Action folder-yellow]
+Name=Yellow
+Name[es]=Amarillo
+Name[fr]=Jaune
+Name[it]=Giallo
+Name[pt]=Amarelo
+Name[de]=Gelb
+Icon=folder-yellow
+Exec=dolphin-folder-color.sh yellow %U
+
+[Desktop Action folder-cyan]
+Name=Cyan
+Name[es]=Cian
+Name[fr]=Cyan
+Name[it]=Ciano
+Name[pt]=Ciano
+Name[de]=Cyan
+Icon=folder-cyan
+Exec=dolphin-folder-color.sh cyan %U
+
+[Desktop Action folder-blue]
+Name=Blue
+Name[es]=Azul
+Name[fr]=Bleu
+Name[it]=Blu
+Name[pt]=Azul
+Name[de]=Blau
+Icon=folder-blue
+Exec=dolphin-folder-color.sh blue %U
+
+[Desktop Action folder-green]
+Name=Green
+Name[es]=Verde
+Name[fr]=Vert
+Name[it]=Verde
+Name[pt]=Verde
+Name[de]=Grün
+Icon=folder-green
+Exec=dolphin-folder-color.sh green %U
+
+[Desktop Action folder-orange]
+Name=Orange
+Name[es]=Naranja
+Name[fr]=Orange
+Name[it]=Arancione
+Name[pt]=Laranja
+Name[de]=Orange
+Icon=folder-orange
+Exec=dolphin-folder-color.sh orange %U
+
+[Desktop Action folder-red]
+Name=Red
+Name[es]=Rojo
+Name[fr]=Rouge
+Name[it]=Rosso
+Name[pt]=Vermelho
+Name[de]=Rot
+Icon=folder-red
+Exec=dolphin-folder-color.sh red %U
+
+[Desktop Action folder-violet]
+Name=Violet
+Name[es]=Violeta
+Name[fr]=Violet
+Name[it]=Viola
+Name[pt]=Violeta
+Name[de]=Violett
+Icon=folder-violet
+Exec=dolphin-folder-color.sh violet %U
+
+[Desktop Action folder-brown]
+Name=Brown
+Name[es]=Marrón
+Name[fr]=Brun
+Name[it]=Marrone
+Name[pt]=Marrom
+Name[de]=Braun
+Icon=folder-brown
+Exec=dolphin-folder-color.sh brown %U
+
+[Desktop Action folder-black]
+Name=Black
+Name[es]=Negro
+Name[fr]=Noir
+Name[it]=Nero
+Name[pt]=Preto
+Name[de]=Schwarz
+Icon=folder-black
+Exec=dolphin-folder-color.sh black %U
+
+#########################################
+
+[Desktop Action user-home]
+Name=Home
+Name[es]=Home
+Name[fr]=Home
+Name[it]=Home
+Name[pt]=Home
+Name[de]=Home
+Icon=user-home
+Exec=dolphin-folder-color.sh user-home %U
+
+[Desktop Action folder-documents]
+Name=Documents
+Name[es]=Documentos
+Name[fr]=Documents
+Name[it]=Documentazione
+Name[pt]=Documentos
+Name[de]=Unterlagen
+Icon=folder-documents
+Exec=dolphin-folder-color.sh documents %U
+
+[Desktop Action folder-downloads]
+Name=Downloads
+Name[es]=Descargas
+Name[fr]=Téléchargements
+Name[it]=Download
+Name[pt]=Download
+Name[de]=Downloads
+Icon=folder-downloads
+Exec=dolphin-folder-color.sh downloads %U
+
+[Desktop Action folder-image]
+Name=Image
+Name[es]=Imágenes
+Name[fr]=Image
+Name[it]=Immagine
+Name[pt]=Imagem
+Name[de]=Bild
+Icon=folder-image
+Exec=dolphin-folder-color.sh image %U
+
+[Desktop Action folder-sound]
+Name=Sound
+Name[es]=Sonido
+Name[fr]=Son
+Name[it]=Suono
+Name[pt]=Parecer
+Name[de]=Klingen
+Icon=folder-sound
+Exec=dolphin-folder-color.sh sound %U
+
+[Desktop Action folder-video]
+Name=Video
+Name[es]=Video
+Name[fr]=Vidéo
+Name[it]=Video
+Name[pt]=Vídeo
+Name[de]=Video
+Icon=folder-video
+Exec=dolphin-folder-color.sh video %U
+
+[Desktop Action folder-txt]
+Name=Text
+Name[es]=Texto
+Name[fr]=Text
+Name[it]=Testo
+Name[pt]=Texto
+name[de]=Text
+Icon=folder-txt
+Exec=dolphin-folder-color.sh txt %U
+
+[Desktop Action folder-network]
+Name=Network
+Name[es]=Red
+Name[fr]=Réseau
+Name[it]=Rete
+Name[pt]=Rede
+Name[de]=Netzwerk
+Icon=folder-network
+Exec=dolphin-folder-color.sh network %U
+
+[Desktop Action folder-development]
+Name=Development
+Name[es]=Desarrollo
+Name[fr]=Développement
+Name[it]=Sviluppo
+Name[pt]=Desenvolvimento
+Name[de]=Entwicklung
+Icon=folder-development
+Exec=dolphin-folder-color.sh development %U
+
+[Desktop Action folder-bookmark]
+Name=Bookmark
+Name[es]=Marcadores
+Name[fr]=Bookmark
+Name[it]=Bookmark
+Name[pt]=Bookmark
+Name[de]=Bookmark
+Icon=folder-bookmark
+Exec=dolphin-folder-color.sh bookmark %U
+
+[Desktop Action folder-favorites]
+Name=Favorites
+Name[es]=Favoritos
+Name[fr]=Favoris
+Name[it]=Preferiti
+Name[pt]=Favoritos
+Name[de]=Favoriten
+Icon=folder-favorites
+Exec=dolphin-folder-color.sh favorites %U
