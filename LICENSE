@@ -1,8 +1,4 @@
-<<<<<<< HEAD
                     GNU GENERAL PUBLIC LICENSE
-=======
-GNU GENERAL PUBLIC LICENSE
->>>>>>> 0cc34bfbae81d21e876f856878d88684476be746
                        Version 3, 29 June 2007
 
  Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
@@ -635,13 +631,8 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-<<<<<<< HEAD
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) <year>  <name of author>
-=======
     {one line to give the program's name and a brief idea of what it does.}
     Copyright (C) {year}  {name of author}
->>>>>>> 0cc34bfbae81d21e876f856878d88684476be746
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -661,11 +652,7 @@ Also add information on how to contact you by electronic and paper mail.
   If the program does terminal interaction, make it output a short
 notice like this when it starts in an interactive mode:
 
-<<<<<<< HEAD
-    dolphin-folder-color  Copyright (C) 2014  Smith AR <audoban@openmailbox.org>
-=======
-    {project}  Copyright (C) {year}  {fullname}
->>>>>>> 0cc34bfbae81d21e876f856878d88684476be746
+    dolphin-folder-color KDE Service Menu  Copyright (C) 2014  Smith AR
     This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
     This is free software, and you are welcome to redistribute it
     under certain conditions; type `show c' for details.
