@@ -25,7 +25,7 @@ Name[fr]=Icône personnalisée
 Name[it]=Icona Personalizzata
 Name[pt]=Ícone personalizado
 Name[de]=Custom Icon
-Exec=dolphin-folder-color.sh custom %U
+Exec=dolphin-folder-color.sh custom %U 
 
 #########################################
 

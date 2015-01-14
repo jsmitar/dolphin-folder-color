@@ -17,15 +17,14 @@
 #
 #
 # Version 1.3
-# folder-icon.sh ICON_NAME PATH1 PATH2 ...
+# dolphin-folder-color.sh ICON_NAME PATH1 PATH2 ...
 # name: is a color or any other folder-$icon or freedesktop icon
 
 shopt -s extglob
-icon=${1:?'Name or color icon not present'} ; shift
+icon=${1:?'Name or color icon is not present'} ; shift
 desktopEntry='.directory'
 tmp=$TMPDIR/$desktopEntry-$PPID
 
-echo "icon..: $icon"
 
 case $icon in
  default | black  | blue   | brown    |\
@@ -52,8 +51,6 @@ case $icon in
 		icon="default"
 	fi
 esac
-
-echo "icon: $icon"
 
 for dir in "$@" ; do
 	cd "$dir"
