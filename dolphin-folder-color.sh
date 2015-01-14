@@ -16,23 +16,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version 1.2
-# folder-icon.sh NAME PATH1 PATH2 ...
+# Version 1.3
+# folder-icon.sh ICON_NAME PATH1 PATH2 ...
 # name: is a color or any other folder-$icon or freedesktop icon
 
 shopt -s extglob
-icon=${1:?'Name or color icon is not present'} ; shift
+icon=${1:?'Name or color icon not present'} ; shift
 desktopEntry='.directory'
 tmp=$TMPDIR/$desktopEntry-$PPID
+
+echo "icon..: $icon"
 
 case $icon in
  default | black  | blue   | brown    |\
  cyan    | green  | grey   | orange   |\
- red     | violet | yellow | bookmark |\
- remote     | tar | sound  | temp | txt | video |\
- activities | development  | documents  | html  |\
- favorites  | downloads    | locked     | image |\
- important  | image-people | network    | print )
+ red     | violet | yellow |\
+ bookmark   | remote | tar   | sound  |\
+ temp | txt | text   | video | videos |\
+ activities | development  | documents    | html   |\
+ favorites  | download     | downloads    | locked |\
+ image      | images       | image-people | important |\
+ network    | templates    | public       | publicshare | print )
 
 	if [ $icon != 'default' ] ; then
 		icon="folder-$icon"
@@ -44,12 +48,12 @@ case $icon in
 		then exit
 	fi
 ;; *)
-	if [ -f $(kiconfinder $1) ] ; then
-		icon=$1
-	else
-		icon=default;
+	if ! [ -f $(kiconfinder $icon) ] ; then
+		icon="default"
 	fi
 esac
+
+echo "icon: $icon"
 
 for dir in "$@" ; do
 	cd "$dir"

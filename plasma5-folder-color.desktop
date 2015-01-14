@@ -3,7 +3,7 @@ Name=Folder Color
 
 Encoding=UTF-8
 Version=1.3
-Icon=folder-red
+Icon=folder-cyan
 Type=Service
 ServiceTypes=KonqPopupMenu/Plugin
 MimeType=inode/directory;
@@ -16,7 +16,7 @@ X-KDE-Submenu[pt]=Pasta Cor
 X-KDE-Submenu[de]=Farbe Ordner
 X-KDE-Priority=TopLevel
 
-Actions=custom-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-downloads;folder-image;folder-sound;folder-video;folder-txt;folder-network;folder-development;folder-bookmark;folder-favorites;
+Actions=custom-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-download;folder-images;folder-sound;folder-videos;folder-text;folder-network;folder-development;folder-bookmark;folder-favorites;
 
 [Desktop Action custom-icon]
 Name=Custom icon
@@ -161,25 +161,25 @@ Name[de]=Unterlagen
 Icon=folder-documents
 Exec=dolphin-folder-color.sh documents %U
 
-[Desktop Action folder-downloads]
+[Desktop Action folder-download]
 Name=Downloads
 Name[es]=Descargas
 Name[fr]=Téléchargements
 Name[it]=Download
 Name[pt]=Download
 Name[de]=Downloads
-Icon=folder-downloads
-Exec=dolphin-folder-color.sh downloads %U
+Icon=folder-download
+Exec=dolphin-folder-color.sh download %U
 
-[Desktop Action folder-image]
+[Desktop Action folder-images]
 Name=Image
 Name[es]=Imágenes
 Name[fr]=Image
 Name[it]=Immagine
 Name[pt]=Imagem
 Name[de]=Bild
-Icon=folder-image
-Exec=dolphin-folder-color.sh image %U
+Icon=folder-images
+Exec=dolphin-folder-color.sh images %U
 
 [Desktop Action folder-sound]
 Name=Sound
@@ -191,25 +191,25 @@ Name[de]=Klingen
 Icon=folder-sound
 Exec=dolphin-folder-color.sh sound %U
 
-[Desktop Action folder-video]
+[Desktop Action folder-videos]
 Name=Video
 Name[es]=Video
 Name[fr]=Vidéo
 Name[it]=Video
 Name[pt]=Vídeo
 Name[de]=Video
-Icon=folder-video
-Exec=dolphin-folder-color.sh video %U
+Icon=folder-videos
+Exec=dolphin-folder-color.sh videos %U
 
-[Desktop Action folder-txt]
+[Desktop Action folder-text]
 Name=Text
 Name[es]=Texto
 Name[fr]=Text
 Name[it]=Testo
 Name[pt]=Texto
 name[de]=Text
-Icon=folder-txt
-Exec=dolphin-folder-color.sh txt %U
+Icon=folder-text
+Exec=dolphin-folder-color.sh text %U
 
 [Desktop Action folder-network]
 Name=Network

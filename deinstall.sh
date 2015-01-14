@@ -16,13 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version: 1.2
+# Version: 1.3
 # DEINSTALL: Only run this script
 
 shopt -s extglob
 IFS=':'
+
 prefixServices=($(kde4-config --path services))
-foldercolorDE='ServiceMenus/dolphin-folder-color.desktop'
+if ( kf5-config ) ; then
+#	prefixServices=($(kf5-config --path services))
+	foldercolorDE='ServiceMenus/plasma5-folder-color.desktop'
+else
+	foldercolorDE='ServiceMenus/dolphin-folder-color.desktop'
+fi
 foldercolorSH='bin/dolphin-folder-color.sh'
 succesDeinstall=true
 

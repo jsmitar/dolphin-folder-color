@@ -31,6 +31,9 @@ combobox=('⚫ Install on:' 'root' $user)
 prefix='/usr'
 
 foldercolorDE='dolphin-folder-color.desktop'
+if ( kf5-config ) ; then 
+	foldercolorDE='plasma5-folder-color.desktop'
+fi
 foldercolorSH='dolphin-folder-color.sh'
 pathDesktop='ServiceMenus'
 pathExec='bin'
