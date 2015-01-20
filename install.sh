@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version: 1.3
+# Version: 1.4
 # INSTALL: Only run this script
 
 shopt -s extglob

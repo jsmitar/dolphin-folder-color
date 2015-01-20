@@ -2,13 +2,13 @@
 Name=Folder Color
 
 Encoding=UTF-8
-Version=1.3
+Version=1.4
 Icon=folder-cyan
 Type=Service
 ServiceTypes=KonqPopupMenu/Plugin
 MimeType=inode/directory;
 
-X-KDE-Submenu=Color folder
+X-KDE-Submenu=Folder Color
 X-KDE-Submenu[es]=Color
 X-KDE-Submenu[fr]=Dossier de couleur
 X-KDE-Submenu[it]=Cartella colori
