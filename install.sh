@@ -16,10 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version: 1.4
+# Version: 1.5
 # INSTALL: Only run this script
 
 shopt -s extglob
+shopt -s expand_aliases
+shopt -s extdebug
+
 cd $(dirname $0)
 
 ${exit:=$1}
@@ -31,12 +34,22 @@ combobox=('⚫ Install on:' 'root' $user)
 prefix='/usr'
 
 foldercolorDE='dolphin-folder-color.desktop'
-if ( kf5-config ) ; then 
-	foldercolorDE='plasma5-folder-color.desktop'
-fi
 foldercolorSH='dolphin-folder-color.sh'
-pathDesktop='ServiceMenus'
-pathExec='bin'
+pathService='ServiceMenus'
+pathExec='/usr/bin'
+
+
+if which kf5-config &>/dev/null ; then
+	foldercolorDE='plasma5-folder-color.desktop'
+	pathService=''
+
+	alias kde-config-data='kf5-config --path data'
+	alias kde-config-services='kf5-config --path services'
+else
+    alias kde-config-data='kde4-config --localprefix'
+	alias kde-config-services='kde4-config --path services'
+fi
+
 
 if [ $exit != "finish" ] && [ $UID != 0 ] ; then
 	kdg=$(kdialog --caption Dolphin --title "$title" --combobox "${combobox[@]}" --default $user)
@@ -46,6 +59,7 @@ if [ $exit != "finish" ] && [ $UID != 0 ] ; then
 		then prefix=$HOME
 	fi
 fi
+
 
 if [ $prefix = '/usr' ] ; then
 	declare -r RootInstall=true
@@ -63,6 +77,7 @@ setPathSH(){
 	str=${str//+(\/)/\\/}
 	sed "s/$pattern/$str/" $foldercolorDE > $tmp
 }
+
 succesInstall=true
 if ( $RootInstall ) ; then
 	if [ $UID != 0 ] ; then
@@ -71,43 +86,51 @@ if ( $RootInstall ) ; then
 		exit
 	else
 		IFS=":"
-		pathServices=$(kde4-config --path services)
-		for d in $pathServices ; do
-			if [ -z ${d/\/usr\/*/} ]
-				then pathDesktop=$d$pathDesktop
+
+		for p in $(kde-config-services) ; do
+			if [ -z ${p/\/usr\/*/} ] ; then
+				pathService=$p/$pathService
 			fi
 		done
-		pathExec=$(kde4-config --prefix)/$pathExec
 
 		setPathSH
+
 		kde-cp --overwrite ./$foldercolorSH "$pathExec/$foldercolorSH"
-		kde-cp --overwrite ./$tmp "$pathDesktop/$foldercolorDE"
+		kde-cp --overwrite ./$tmp "$pathService/$foldercolorDE"
+
 		if [ $? != 0 ] ; then
 			succesInstall=false
 		fi
+
 		rm $tmp
 	fi
 else
-	pathDesktop=$(kde4-config --localprefix)"share/kde4/services/"$pathDesktop
-	pathExec=$(kde4-config --localprefix)$pathExec
-	if (! [ -d "$pathExec" ] )
-		then mkdir "$pathExec"
-	fi
-	if (! [ -d "$pathDesktop" ] )
-		then mkdir "$pathDesktop"
-	fi
+	IFS=":"
+
+	for p in $(kde-config-services) ; do
+	    if (! [ -d "$p" ] )
+			then mkdir "$p"
+	    fi
+		if [ -w "$p" ] ; then
+			pathService=$p/$pathService
+			pathExec=$pathService
+			break
+		fi
+	done
 
 	setPathSH
-	kde-cp --overwrite ./$foldercolorSH "$pathExec/$foldercolorSH"
-	kde-cp --overwrite ./$tmp "$pathDesktop/$foldercolorDE"
+
+	kde-cp --overwrite ./$foldercolorSH "$pathService/$foldercolorSH"
+	kde-cp --overwrite ./$tmp "$pathService/$foldercolorDE"
 	if [ $? != 0 ] ; then
 		succesInstall=false
 	fi
 	rm $tmp
 fi
 
-if ! $succesInstall ; then
-	kdialog --caption ' ' --title dolphin-folder-color --msgbox "Installation failed!"
-	exit 2
+if $succesInstall ; then
+	msg="Installed successfully."
+else
+	msg="Installation failed!"
 fi
-kdialog --caption ' ' --title dolphin-folder-color --msgbox "Installed successfully."
+kdialog --caption ' ' --title dolphin-folder-color --msgbox "$msg"

@@ -2,7 +2,7 @@
 Name=Folder Color
 
 Encoding=UTF-8
-Version=1.4
+Version=1.5
 Icon=folder-cyan
 Type=Service
 ServiceTypes=KonqPopupMenu/Plugin
@@ -27,7 +27,7 @@ Name[it]=Icona Personalizzata
 Name[pt]=Ícone personalizado
 Name[pt_BR]=Ícone personalizado
 Name[de]=Custom Icon
-Exec=dolphin-folder-color.sh custom %U 
+Exec=dolphin-folder-color.sh custom %U
 
 #########################################
 

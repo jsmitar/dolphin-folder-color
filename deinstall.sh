@@ -16,42 +16,71 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version: 1.4
+# Version: 1.5
 # DEINSTALL: Only run this script
 
 shopt -s extglob
+shopt -s expand_aliases
+
+declare foldercolorSH
+declare foldercolorDE
+declare succesUninstall=true
+
+authorize(){
+    kdesu -i folder-red -n -d -c $0 & disown -h
+}
+
+if which kf5-config &>/dev/null ; then
+	foldercolorDE='plasma5-folder-color.desktop'
+	foldercolorSH='dolphin-folder-color.sh'
+
+	alias kde-config-data='kf5-config --path data'
+	alias kde-config-services='kf5-config --path services'
+else
+    foldercolorDE='dolphin-folder-color.desktop'
+    foldercolorSH='bin/dolphin-folder-color.sh'
+
+    alias kde-config-data='kde4-config --localprefix'
+	alias kde-config-services='kde4-config --path services'
+fi
+
+fileSH='/usr/bin/dolphin-folder-color.sh'
 IFS=':'
 
-prefixServices=($(kde4-config --path services))
-if ( kf5-config ) ; then
-#	prefixServices=($(kf5-config --path services))
-	foldercolorDE='ServiceMenus/plasma5-folder-color.desktop'
+if [ -a $fileSH ] ; then
+    if [ $UID = 0 ] ; then
+		rm $fileSH
+    else
+        authorize
+	fi
 else
-	foldercolorDE='ServiceMenus/dolphin-folder-color.desktop'
-fi
-foldercolorSH='bin/dolphin-folder-color.sh'
-succesDeinstall=true
-
-for prefixService in ${prefixServices[@]} ; do
-	fileDE=$prefixService/$foldercolorDE
-	if [ -O $fileDE ] ; then
-		if [ $UID = 0 ] ; then
-			fileSH=$(kde4-config --prefix)/$foldercolorSH
-		else
-			fileSH=$(kde4-config --localprefix)/$foldercolorSH
+    for pathService in $(kde-config-services) ; do
+		fileSH=$pathService/$foldercolorSH
+		if [ -O $fileSH ] ; then
+			rm $fileSH
+			if [ $? != 0 ] ; then
+				succesUninstall=false
+			fi
 		fi
-		rm $fileDE $fileSH
+    done
+fi
+
+for pathService in $(kde-config-pathServices) ; do
+	fileDE=$pathService/$foldercolorDE
+	if [ -O $fileDE ] ; then
+		rm $fileDE
 		if [ $? != 0 ] ; then
-			succesDeinstall=false
+			succesUninstall=false
 		fi
 	elif [ -a $fileDE ] && ! [ -O $fileDE  ] ; then
-		kdesu -i folder-red -n -d -c $0 \
-			& disown -h
-		exit
+		authorize
 	fi
 done
-if ! $succesDeinstall ; then
-	kdialog --caption ' ' --title dolphin-folder-color --msgbox "Uninstallation failed!"
-	exit 2
+
+
+if $succesUninstall ; then
+	msg="Uninstalled successfully."
+else
+	msg="Uninstallation failed!"
 fi
-kdialog --caption ' ' --title dolphin-folder-color --msgbox "Uninstalled successfully."
+kdialog --caption ' ' --title dolphin-folder-color --msgbox "$msg"
