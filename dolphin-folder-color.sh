@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version 1.4
+# Version 1.5
 
 ### USAGE:
 # dolphin-folder-color.sh <ICON_NAME> [PATH1] [PATH2] ...
@@ -25,8 +25,13 @@
 shopt -s extglob
 icon=${1:?'Name or color icon is not present'} ; shift
 desktopEntry='.directory'
+
+${TMPDIR:="/tmp"}
 tmp=$TMPDIR/$desktopEntry-$PPID
 
+if which kf5-config &>/dev/null ; then
+	alias kiconfinder="kiconfinder5"
+fi
 
 case $icon in
 	default | black  | blue   | brown    |\
@@ -62,13 +67,13 @@ for dir in "$@" ; do
 	else
 		echo "Directory not found: $dir" ; continue
 	fi
-	
+
 	if [ -w $desktopEntry ] && [ -n "$(< $desktopEntry)" ] ; then
-	
+
 		tag=$(grep 'Icon=.*' $desktopEntry)
 		header=$(grep '\[Desktop Entry\]' $desktopEntry)
-		icon=${icon//+(\/)/\\/} ##syntax ${parameter//pattern/string} 
-		
+		icon=${icon//+(\/)/\\/} ##syntax ${parameter//pattern/string}
+
 		if [ $icon = 'default' ] ; then
 			sed '/Icon=.*/d' $desktopEntry > $tmp
 
@@ -94,7 +99,7 @@ for dir in "$@" ; do
 	elif [[ $icon != 'default' ]] ; then
 		echo -e "[Desktop Entry]\nIcon=$icon" > $desktopEntry
 	fi
-	
+
 	## Return to parent directory
 	cd ..
 done
