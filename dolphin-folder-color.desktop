@@ -2,7 +2,7 @@
 Name=Folder Color
 
 Encoding=UTF-8
-Version=1.5
+Version=1.6
 Icon=folder-red
 Type=Service
 ServiceTypes=KonqPopupMenu/Plugin
@@ -15,6 +15,7 @@ X-KDE-Submenu[it]=Cartella colori
 X-KDE-Submenu[pt]=Pasta Cor
 X-KDE-Submenu[pt_BR]=Cor da pasta
 X-KDE-Submenu[de]=Farbe Ordner
+X-KDE-Submenu[pl]=Kolor katalogu
 X-KDE-Priority=TopLevel
 
 Actions=custom-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-downloads;folder-image;folder-sound;folder-video;folder-txt;folder-network;folder-development;folder-bookmark;folder-favorites;
@@ -27,6 +28,7 @@ Name[it]=Icona Personalizzata
 Name[pt]=Ícone personalizado
 Name[pt_BR]=Ícone personalizado
 Name[de]=Custom Icon
+Name[pl]=Personalizacja ikon
 Exec=dolphin-folder-color.sh custom %U
 
 #########################################
@@ -39,6 +41,7 @@ Name[it]=Difetto
 Name[pt]=Omissão
 Name[pt_BR]=Padrão
 Name[de]=Default
+Name[pl]=Domyślny
 Icon=folder
 Exec=dolphin-folder-color.sh default %U
 
@@ -50,6 +53,7 @@ Name[it]=Grigio
 Name[pt]=Cinzento
 Name[pt_BR]=Cinza
 Name[de]=Grau
+Name[pl]=Szary
 Icon=folder-grey
 Exec=dolphin-folder-color.sh grey %U
 
@@ -61,6 +65,7 @@ Name[it]=Giallo
 Name[pt]=Amarelo
 Name[pt_BR]=Amarela
 Name[de]=Gelb
+Name[pl]=Żółty
 Icon=folder-yellow
 Exec=dolphin-folder-color.sh yellow %U
 
@@ -72,6 +77,7 @@ Name[it]=Ciano
 Name[pt]=Ciano
 Name[pt_BR]=Ciano
 Name[de]=Cyan
+Name[pl]=Cyjan
 Icon=folder-cyan
 Exec=dolphin-folder-color.sh cyan %U
 
@@ -83,6 +89,7 @@ Name[it]=Blu
 Name[pt]=Azul
 Name[pt_BR]=Azul
 Name[de]=Blau
+Name[pl]=Niebieski
 Icon=folder-blue
 Exec=dolphin-folder-color.sh blue %U
 
@@ -94,6 +101,7 @@ Name[it]=Verde
 Name[pt]=Verde
 Name[pt_BR]=Verde
 Name[de]=Grün
+Name[pl]=Zielony
 Icon=folder-green
 Exec=dolphin-folder-color.sh green %U
 
@@ -105,6 +113,7 @@ Name[it]=Arancione
 Name[pt]=Laranja
 Name[pt_BR]=Laranja
 Name[de]=Orange
+Name[pl]=Pomarańczowy
 Icon=folder-orange
 Exec=dolphin-folder-color.sh orange %U
 
@@ -116,6 +125,7 @@ Name[it]=Rosso
 Name[pt]=Vermelho
 Name[pt_BR]=Vermelha
 Name[de]=Rot
+Name[pl]=Czerwony
 Icon=folder-red
 Exec=dolphin-folder-color.sh red %U
 
@@ -127,6 +137,7 @@ Name[it]=Viola
 Name[pt]=Violeta
 Name[pt_BR]=Violeta
 Name[de]=Violett
+Name[pl]=Fioletowy
 Icon=folder-violet
 Exec=dolphin-folder-color.sh violet %U
 
@@ -138,6 +149,7 @@ Name[it]=Marrone
 Name[pt]=Marrom
 Name[pt_BR]=Marrom
 Name[de]=Braun
+Name[pl]=Brązowy
 Icon=folder-brown
 Exec=dolphin-folder-color.sh brown %U
 
@@ -149,6 +161,7 @@ Name[it]=Nero
 Name[pt]=Preto
 Name[pt_BR]=Preta
 Name[de]=Schwarz
+Name[pl]=Czarny
 Icon=folder-black
 Exec=dolphin-folder-color.sh black %U
 
@@ -162,6 +175,7 @@ Name[it]=Home
 Name[pt]=Home
 Name[pt_BR]=Home
 Name[de]=Home
+Name[pl]=Katalog domowy
 Icon=user-home
 Exec=dolphin-folder-color.sh user-home %U
 
@@ -173,6 +187,7 @@ Name[it]=Documentazione
 Name[pt]=Documentos
 Name[pt_BR]=Documentos
 Name[de]=Unterlagen
+Name[pl]=Dokumenty
 Icon=folder-documents
 Exec=dolphin-folder-color.sh documents %U
 
@@ -184,6 +199,7 @@ Name[it]=Download
 Name[pt]=Download
 Name[pt_BR]=Downloads
 Name[de]=Downloads
+Name[pl]=Pobrane
 Icon=folder-downloads
 Exec=dolphin-folder-color.sh downloads %U
 
@@ -195,6 +211,7 @@ Name[it]=Immagine
 Name[pt]=Imagem
 Name[pt_BR]=Imagens
 Name[de]=Bild
+Name[pl]=Obrazy
 Icon=folder-image
 Exec=dolphin-folder-color.sh image %U
 
@@ -206,6 +223,7 @@ Name[it]=Suono
 Name[pt]=Parecer
 Name[pt_BR]=Áudio
 Name[de]=Klingen
+Name[pl]=Muzyka
 Icon=folder-sound
 Exec=dolphin-folder-color.sh sound %U
 
@@ -217,6 +235,7 @@ Name[it]=Video
 Name[pt]=Vídeo
 Name[pt_BR]=Vídeo
 Name[de]=Video
+Name[pl]=Wideo
 Icon=folder-video
 Exec=dolphin-folder-color.sh video %U
 
@@ -228,6 +247,7 @@ Name[it]=Testo
 Name[pt]=Texto
 Name[pt_BR]=Texto
 name[de]=Text
+name[pl]=Tekst
 Icon=folder-txt
 Exec=dolphin-folder-color.sh txt %U
 
@@ -239,6 +259,7 @@ Name[it]=Rete
 Name[pt]=Rede
 Name[pt_BR]=Rede
 Name[de]=Netzwerk
+Name[pl]=Sieć
 Icon=folder-network
 Exec=dolphin-folder-color.sh network %U
 
@@ -250,6 +271,7 @@ Name[it]=Sviluppo
 Name[pt]=Desenvolvimento
 Name[pt_BR]=Desenvolvimento
 Name[de]=Entwicklung
+Name[pl]=Programowanie
 Icon=folder-development
 Exec=dolphin-folder-color.sh development %U
 
@@ -261,6 +283,7 @@ Name[it]=Bookmark
 Name[pt]=Bookmark
 Name[pt_BR]=Marcador
 Name[de]=Bookmark
+Name[pl]=Zakładki
 Icon=folder-bookmark
 Exec=dolphin-folder-color.sh bookmark %U
 
@@ -272,5 +295,6 @@ Name[it]=Preferiti
 Name[pt]=Favoritos
 Name[pt_BR]=Favoritos
 Name[de]=Favoriten
+Name[pl]=Ulubione
 Icon=folder-favorites
 Exec=dolphin-folder-color.sh favorites %U
