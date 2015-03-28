@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version: 1.5
+# Version: 1.5.1
 # DEINSTALL: Only run this script
 
 shopt -s extglob

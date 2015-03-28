@@ -23,13 +23,15 @@
 #########################################################################
 
 shopt -s extglob
+shopt -s expand_aliases
+
 icon=${1:?'Name or color icon is not present'} ; shift
 desktopEntry='.directory'
 
 ${TMPDIR:="/tmp"}
 tmp=$TMPDIR/$desktopEntry-$PPID
 
-if which kf5-config &>/dev/null ; then
+if which kiconfinder5 &>/dev/null ; then
 	alias kiconfinder="kiconfinder5"
 fi
 
@@ -111,14 +113,14 @@ reloaded=false
 
 for pid in $(pidof "dolphin") ; do
 	if [ $pid = $PPID ] ; then
-		qdbus $service$PPID $method &> /dev/null
+		qdbus $service$PPID $method &> /dev/null & disown -h
 		reloaded=true
 	fi
 done
 
 if ! $reloaded ; then
 	for pid in $(pidof "dolphin") ; do
-		qdbus $service$pid $method &> /dev/null
+		qdbus $service$pid $method &> /dev/null & disown -h
 	done
 fi
 ###

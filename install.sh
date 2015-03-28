@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version: 1.5
+# Version: 1.5.1
 # INSTALL: Only run this script
 
 shopt -s extglob
@@ -39,7 +39,7 @@ pathService='ServiceMenus'
 pathExec='/usr/bin'
 
 
-if which kf5-config &>/dev/null ; then
+if which kf5-config &>/dev/null && dolphin --version | grep "Qt: 5" ; then
 	foldercolorDE='plasma5-folder-color.desktop'
 	pathService=''
 
