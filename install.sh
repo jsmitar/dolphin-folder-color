@@ -16,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version: 1.5.1
 # INSTALL: Only run this script
 
 shopt -s extglob
@@ -38,23 +37,44 @@ foldercolorSH='dolphin-folder-color.sh'
 pathService='ServiceMenus'
 pathExec='/usr/bin'
 
+setPathSH() {
+	export tmp='.tmp'
+	pattern='dolphin-folder-color\.sh'
+	str="$pathExec/$foldercolorSH"
+	str=${str//+(\/)/\\/}
+	sed "s/$pattern/$str/" $foldercolorDE > $tmp
+}
 
-if which kf5-config &>/dev/null && dolphin --version | grep "Qt: 5" ; then
+mk_directory() {
+	if ! [ -e $1 ] ; then
+		mkdir "$1"
+	fi
+}
+
+authorize() {
+	if [ -n `which kdesudo` ] ; then
+		kdesudo -i folder-red -n -d -c $0 finish & disown -h
+	elif [ -n `which kdesu` ] ; then
+		kdesu   -i folder-red -n -d -c $0 finish & disown -h
+	else
+		kdialog --caption ' ' --title dolphin-folder-color --error 'kdesu not found'
+		exit 1
+	fi
+}
+
+if dolphin --version | grep "Qt: 5.*" ; then
 	foldercolorDE='plasma5-folder-color.desktop'
-	pathService=''
+	pathService=""
 
-	alias kde-config-data='kf5-config --path data'
 	alias kde-config-services='kf5-config --path services'
-else
-    alias kde-config-data='kde4-config --localprefix'
+elif dolphin --version | grep "Qt: 4.*" ; then
 	alias kde-config-services='kde4-config --path services'
 fi
-
 
 if [ $exit != "finish" ] && [ $UID != 0 ] ; then
 	kdg=$(kdialog --caption Dolphin --title "$title" --combobox "${combobox[@]}" --default $user)
 	if [ -z $kdg ]
-		then exit 2
+		then exit 1
 	elif [ $kdg = $user ]
 		then prefix=$HOME
 	fi
@@ -70,19 +90,11 @@ fi
 chmod +x ./$foldercolorSH
 chmod +x ./$foldercolorDE
 
-setPathSH(){
-	export tmp='.tmp'
-	pattern='dolphin-folder-color\.sh'
-	str="$pathExec/$foldercolorSH"
-	str=${str//+(\/)/\\/}
-	sed "s/$pattern/$str/" $foldercolorDE > $tmp
-}
 
 succesInstall=true
 if ( $RootInstall ) ; then
 	if [ $UID != 0 ] ; then
-		kdesu -i folder-red -n -d -c $0 finish \
-			& disown -h
+		authorize
 		exit
 	else
 		IFS=":"
@@ -94,6 +106,8 @@ if ( $RootInstall ) ; then
 		done
 
 		setPathSH
+		mk_directory $pathService
+		mk_directory $pathExec
 
 		kde-cp --overwrite ./$foldercolorSH "$pathExec/$foldercolorSH"
 		kde-cp --overwrite ./$tmp "$pathService/$foldercolorDE"
@@ -119,6 +133,7 @@ else
 	done
 
 	setPathSH
+	mk_directory $pathService
 
 	kde-cp --overwrite ./$foldercolorSH "$pathService/$foldercolorSH"
 	kde-cp --overwrite ./$tmp "$pathService/$foldercolorDE"
