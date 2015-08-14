@@ -44,10 +44,10 @@ if dolphin --version | grep "Qt: 5.*" ; then
 	alias kde-config-data='kf5-config --path data'
 	alias kde-config-services='kf5-config --path services'
 elif dolphin --version | grep "Qt: 4.*" ; then
-    foldercolorDE='ServiceMenus/dolphin-folder-color.desktop'
-    foldercolorSH='ServiceMenus/dolphin-folder-color.sh'
+	foldercolorDE='ServiceMenus/dolphin-folder-color.desktop'
+	foldercolorSH='ServiceMenus/dolphin-folder-color.sh'
 
-    alias kde-config-data='kde4-config --localprefix'
+	alias kde-config-data='kde4-config --localprefix'
 	alias kde-config-services='kde4-config --path services'
 fi
 
@@ -55,14 +55,14 @@ fileSH='/usr/bin/dolphin-folder-color.sh'
 IFS=':'
 
 if [ -a $fileSH ] ; then
-    if [ $UID = 0 ] ; then
+	if [ $UID = 0 ] ; then
 		rm $fileSH
-    else
-        authorize
-        exit
+	else
+		authorize
+		exit
 	fi
 else
-    for pathService in $(kde-config-services) ; do
+	for pathService in $(kde-config-services) ; do
 		fileSH=$pathService/$foldercolorSH
 		if [ -O $fileSH ] ; then
 			rm $fileSH
@@ -70,7 +70,7 @@ else
 				succesUninstall=false
 			fi
 		fi
-    done
+	done
 fi
 
 for pathService in $(kde-config-services) ; do

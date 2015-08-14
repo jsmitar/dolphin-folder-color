@@ -122,9 +122,9 @@ else
 	IFS=":"
 
 	for p in $(kde-config-services) ; do
-	    if (! [ -d "$p" ] )
+		if (! [ -d "$p" ] )
 			then mkdir "$p"
-	    fi
+		fi
 		if [ -w "$p" ] ; then
 			pathService=$p/$pathService
 			pathExec=$pathService
