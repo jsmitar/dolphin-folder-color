@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version 1.5
+# Version 1.6
 
 ### USAGE:
 # dolphin-folder-color.sh <ICON_NAME> [PATH1] [PATH2] ...

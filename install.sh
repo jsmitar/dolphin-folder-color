@@ -27,15 +27,17 @@ cd $(dirname $0)
 ${exit:=$1}
 exit=${exit:-"continue"}
 
-title='Folder Color'
-user=$(basename $HOME)
-combobox=('⚫ Install on:' 'root' $user)
-prefix='/usr'
+declare title='Folder Color'
+declare user=$(basename $HOME)
+declare combobox0=('⚫ Select your version of Dolphin:' 'Plasma 5' 'KDE4')
+declare combobox1=('⚫ Install on:' 'root' $user)
+declare rect='330x130'
+declare prefix='/usr'
 
-foldercolorDE='dolphin-folder-color.desktop'
-foldercolorSH='dolphin-folder-color.sh'
-pathService='ServiceMenus'
-pathExec='/usr/bin'
+declare foldercolorDE='dolphin-folder-color.desktop'
+declare foldercolorSH='dolphin-folder-color.sh'
+declare pathService='ServiceMenus'
+declare pathExec='/usr/bin'
 
 setPathSH() {
 	export tmp='.tmp'
@@ -52,30 +54,48 @@ mk_directory() {
 }
 
 authorize() {
-	if [ -n `which kdesudo` ] ; then
-		kdesudo -i folder-red -n -d -c $0 finish & disown -h
-	elif [ -n `which kdesu` ] ; then
-		kdesu   -i folder-red -n -d -c $0 finish & disown -h
+	if [ `which kdesu` ] ; then
+		kdesu   -i folder-red -n -d -c $0 finish "$choice" & disown -h
+	elif [ `which kdesudo` ] ; then
+		kdesudo -i folder-red -n -d -c $0 finish "$choice" & disown -h
 	else
 		kdialog --caption ' ' --title dolphin-folder-color --error 'kdesu not found'
 		exit 1
 	fi
 }
 
-if dolphin --version | grep "Qt: 5.*" ; then
+if [ $exit == 'continue' ] ; then
+	choice=$(kdialog --caption Dolphin \
+		--title "$title" \
+		--combobox "${combobox0[@]}" \
+		--default "${combobox0[1]}" \
+		--geometry $rect)
+else
+	choice=$2
+fi
+
+
+if [ -z "$choice" ]
+	then exit 0
+elif [ "$choice" == "Plasma 5" ] ; then
 	foldercolorDE='plasma5-folder-color.desktop'
 	pathService=""
 
-	alias kde-config-services='kf5-config --path services'
-elif dolphin --version | grep "Qt: 4.*" ; then
-	alias kde-config-services='kde4-config --path services'
+	export kde_config_services=`kf5-config --path services`
+else
+	export kde_config_services=`kde4-config --path services`
 fi
 
 if [ $exit != "finish" ] && [ $UID != 0 ] ; then
-	kdg=$(kdialog --caption Dolphin --title "$title" --combobox "${combobox[@]}" --default $user)
-	if [ -z $kdg ]
-		then exit 1
-	elif [ $kdg = $user ]
+	kdg=$(kdialog --caption Dolphin \
+		--title "$title" \
+		--combobox "${combobox1[@]}" \
+		--default $user \
+		--geometry $rect)
+
+	if [ -z "$kdg" ]
+		then exit 0
+	elif [ "$kdg" = "$user" ]
 		then prefix=$HOME
 	fi
 fi
@@ -90,18 +110,17 @@ fi
 chmod +x ./$foldercolorSH
 chmod +x ./$foldercolorDE
 
-
 succesInstall=true
-if ( $RootInstall ) ; then
+if $RootInstall ; then
 	if [ $UID != 0 ] ; then
 		authorize
 		exit
 	else
 		IFS=":"
 
-		for p in $(kde-config-services) ; do
+		for p in $kde_config_services ; do
 			if [ -z ${p/\/usr\/*/} ] ; then
-				pathService=$p/$pathService
+				pathService="$p/$pathService"
 			fi
 		done
 
@@ -116,18 +135,18 @@ if ( $RootInstall ) ; then
 			succesInstall=false
 		fi
 
-		rm $tmp
+		rm -r $tmp
 	fi
 else
 	IFS=":"
 
-	for p in $(kde-config-services) ; do
-		if (! [ -d "$p" ] )
+	for p in $kde_config_services ; do
+		if ! [ -d "$p" ]
 			then mkdir "$p"
 		fi
 		if [ -w "$p" ] ; then
-			pathService=$p/$pathService
-			pathExec=$pathService
+			pathService="$p/$pathService"
+			pathExec="$pathService"
 			break
 		fi
 	done
@@ -148,4 +167,4 @@ if $succesInstall ; then
 else
 	msg="Installation failed!"
 fi
-kdialog --caption ' ' --title dolphin-folder-color --msgbox "$msg"
+kdialog --caption Dolphin --title "$title" --msgbox "$msg" --geometry $rect

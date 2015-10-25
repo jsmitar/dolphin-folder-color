@@ -2,7 +2,7 @@
 Name=Folder Color
 
 Encoding=UTF-8
-Version=1.5.1
+Version=1.6
 Icon=folder-cyan
 Type=Service
 ServiceTypes=KonqPopupMenu/Plugin

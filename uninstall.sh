@@ -22,33 +22,53 @@ shopt -s extglob
 shopt -s expand_aliases
 shopt -s extdebug
 
+${exit:=$1}
+exit=${exit:-"continue"}
+
 declare foldercolorSH
 declare foldercolorDE
 declare succesUninstall=true
+declare rect='330x130'
+declare title='Folder Color'
+declare combobox0=('⚫ Select your version of Dolphin:' 'Plasma 5' 'KDE4')
 
 authorize() {
-	if [ -x `which kdesudo` ] ; then
-		kdesudo -i folder-red -n -d -c $0 finish & disown -h
-	elif [ -x `which kdesu` ] ; then
-		kdesu   -i folder-red -n -d -c $0 finish & disown -h
+	if [ `which kdesu` ] ; then
+		kdesu   -i folder-red -n -d -c $0 finish $choice & disown -h
+	elif [ `which kdesudo` ] ; then
+		kdesudo -i folder-red -n -d -c $0 finish $choice & disown -h
 	else
-		kdialog --caption ' ' --title dolphin-folder-color --error 'kdesu not found'
+		kdialog --caption 'Error' --title dolphin-folder-color --error 'kdesu
+not found'
 		exit 1
 	fi
 }
 
-if dolphin --version | grep "Qt: 5.*" ; then
+if [ $exit == 'continue' ] ; then
+	choice=$(kdialog --caption Dolphin \
+		--title "$title" \
+		--combobox "${combobox0[@]}" \
+		--default "${combobox0[1]}" \
+		--geometry $rect)
+else
+	choice=$2
+fi
+
+
+if [ -z "$choice" ]
+	then exit 0
+elif [ "$choice" == "Plasma 5" ] ; then
 	foldercolorDE='plasma5-folder-color.desktop'
 	foldercolorSH='dolphin-folder-color.sh'
 
-	alias kde-config-data='kf5-config --path data'
-	alias kde-config-services='kf5-config --path services'
-elif dolphin --version | grep "Qt: 4.*" ; then
+	export kde_config_data=`kf5-config --path data`
+	export kde_config_services=`kf5-config --path services`
+else
 	foldercolorDE='ServiceMenus/dolphin-folder-color.desktop'
 	foldercolorSH='ServiceMenus/dolphin-folder-color.sh'
 
-	alias kde-config-data='kde4-config --localprefix'
-	alias kde-config-services='kde4-config --path services'
+	export kde_config_data=`kde4-config --localprefix`
+	export kde_config_services=`kde4-config --path services`
 fi
 
 fileSH='/usr/bin/dolphin-folder-color.sh'
@@ -59,13 +79,13 @@ if [ -a $fileSH ] ; then
 		rm $fileSH
 	else
 		authorize
-		exit
+		exit 0
 	fi
 else
-	for pathService in $(kde-config-services) ; do
-		fileSH=$pathService/$foldercolorSH
-		if [ -O $fileSH ] ; then
-			rm $fileSH
+	for pathData in $kde_config_services ; do
+		fileSH="$pathData/$foldercolorSH"
+		if [ -O "$fileSH" ] ; then
+			rm "$fileSH"
 			if [ $? != 0 ] ; then
 				succesUninstall=false
 			fi
@@ -73,16 +93,15 @@ else
 	done
 fi
 
-for pathService in $(kde-config-services) ; do
-	fileDE=$pathService/$foldercolorDE
-	if [ -O $fileDE ] ; then
+for pathService in $kde_config_services ; do
+	fileDE="$pathService/$foldercolorDE"
+	if [ -O "$fileDE" ] ; then
 		rm "$fileDE"
 		if [ $? != 0 ] ; then
 			succesUninstall=false
 		fi
-	elif [ -a $fileDE ] && ! [ -O $fileDE  ] ; then
+	elif [ -a "$fileDE" ] && ! [ -O "$fileDE"  ] ; then
 		authorize
-		exit
 	fi
 done
 
@@ -92,4 +111,4 @@ if $succesUninstall ; then
 else
 	msg="Uninstallation failed!"
 fi
-kdialog --caption ' ' --title dolphin-folder-color --msgbox "$msg"
+kdialog --caption Dolphin --title "$title" --msgbox "$msg" --geometry $rect
