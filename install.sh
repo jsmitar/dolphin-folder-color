@@ -163,7 +163,8 @@ else
 fi
 
 if $succesInstall ; then
-	msg="Installed successfully."
+	msg="Installed successfully.
+	\nPlease restart Dolphin to update the Service Menus."
 else
 	msg="Installation failed!"
 fi

@@ -18,7 +18,7 @@ X-KDE-Submenu[de]=Farbe Ordner
 X-KDE-Submenu[pl]=Kolor katalogu
 X-KDE-Priority=TopLevel
 
-Actions=custom-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-download;folder-images;folder-sound;folder-videos;folder-text;folder-network;folder-development;folder-bookmark;folder-favorites;
+Actions=custom-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-magenta;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-download;folder-images;folder-sound;folder-videos;folder-text;folder-network;folder-development;folder-bookmark;folder-favorites;
 
 [Desktop Action custom-icon]
 Name=Custom icon
@@ -29,6 +29,7 @@ Name[pt]=Ícone personalizado
 Name[pt_BR]=Ícone personalizado
 Name[de]=Custom Icon
 Name[pl]=Personalizacja ikon
+Icon=colors-chromared
 Exec=dolphin-folder-color.sh custom %U
 
 #########################################
@@ -128,6 +129,18 @@ Name[de]=Rot
 Name[pl]=Czerwony
 Icon=folder-red
 Exec=dolphin-folder-color.sh red %U
+
+[Desktop Action folder-magenta]
+Name=Magenta
+Name[es]=Magenta
+Name[fr]=Magenta
+Name[it]=Magenta
+Name[pt]=Magenta
+Name[pt_BR]=Magenta
+Name[de]=Magenta
+Name[pl]=Fuksyna
+Icon=folder-magenta
+Exec=dolphin-folder-color.sh magenta %U
 
 [Desktop Action folder-violet]
 Name=Violet

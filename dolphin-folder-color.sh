@@ -36,9 +36,9 @@ if which kiconfinder5 &>/dev/null ; then
 fi
 
 case $icon in
-	default | black  | blue   | brown    |\
-	cyan    | green  | grey   | orange   |\
-	red     | violet | yellow |\
+	default | black   | blue   | brown    |\
+	cyan    | green   | grey   | orange   |\
+	red     | magenta | violet | yellow   |\
 	bookmark   | remote | tar   | sound  |\
 	temp | txt | text   | video | videos |\
 	activities | development  | documents    | html   |\
