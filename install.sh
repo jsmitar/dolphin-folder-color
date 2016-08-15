@@ -59,7 +59,7 @@ authorize() {
 	elif [ `which kdesudo` ] ; then
 		kdesudo -i folder-red -n -d -c $0 finish "$choice" & disown -h
 	else
-		kdialog --caption ' ' --title dolphin-folder-color --error 'kdesu not found'
+		kdialog --caption ' ' --title dolphin-folder-color --error 'kdesu not found.'
 		exit 1
 	fi
 }
@@ -95,13 +95,13 @@ if [ $exit != "finish" ] && [ $UID != 0 ] ; then
 
 	if [ -z "$kdg" ]
 		then exit 0
-	elif [ "$kdg" = "$user" ]
+	elif [[ "$kdg" = "$user" ]]
 		then prefix=$HOME
 	fi
 fi
 
 
-if [ $prefix = '/usr' ] ; then
+if [[ $prefix = '/usr' ]] ; then
 	declare -r RootInstall=true
 else
 	declare -r RootInstall=false
@@ -112,7 +112,7 @@ chmod +x ./$foldercolorDE
 
 succesInstall=true
 if $RootInstall ; then
-	if [ $UID != 0 ] ; then
+	if [[ $UID != 0 ]] ; then
 		authorize
 		exit
 	else
@@ -156,7 +156,7 @@ else
 
 	kde-cp --overwrite ./$foldercolorSH "$pathService/$foldercolorSH"
 	kde-cp --overwrite ./$tmp "$pathService/$foldercolorDE"
-	if [ $? != 0 ] ; then
+	if [[ $? != 0 ]] ; then
 		succesInstall=false
 	fi
 	rm $tmp

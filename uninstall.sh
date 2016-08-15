@@ -38,13 +38,12 @@ authorize() {
 	elif [ `which kdesudo` ] ; then
 		kdesudo -i folder-red -n -d -c $0 finish $choice & disown -h
 	else
-		kdialog --caption 'Error' --title dolphin-folder-color --error 'kdesu
-not found'
+		kdialog --caption 'Error' --title dolphin-folder-color --error 'kdesu not found'
 		exit 1
 	fi
 }
 
-if [ $exit == 'continue' ] ; then
+if [[ $exit == 'continue' ]] ; then
 	choice=$(kdialog --caption Dolphin \
 		--title "$title" \
 		--combobox "${combobox0[@]}" \
@@ -57,7 +56,7 @@ fi
 
 if [ -z "$choice" ]
 	then exit 0
-elif [ "$choice" == "Plasma 5" ] ; then
+elif [[ "$choice" == "Plasma 5" ]] ; then
 	foldercolorDE='plasma5-folder-color.desktop'
 	foldercolorSH='dolphin-folder-color.sh'
 
@@ -75,7 +74,7 @@ fileSH='/usr/bin/dolphin-folder-color.sh'
 IFS=':'
 
 if [ -a $fileSH ] ; then
-	if [ $UID = 0 ] ; then
+	if [[ $UID = 0 ]] ; then
 		rm $fileSH
 	else
 		authorize
@@ -86,7 +85,7 @@ else
 		fileSH="$pathData/$foldercolorSH"
 		if [ -O "$fileSH" ] ; then
 			rm "$fileSH"
-			if [ $? != 0 ] ; then
+			if [[ $? != 0 ]] ; then
 				succesUninstall=false
 			fi
 		fi
@@ -97,7 +96,7 @@ for pathService in $kde_config_services ; do
 	fileDE="$pathService/$foldercolorDE"
 	if [ -O "$fileDE" ] ; then
 		rm "$fileDE"
-		if [ $? != 0 ] ; then
+		if [[ $? != 0 ]] ; then
 			succesUninstall=false
 		fi
 	elif [ -a "$fileDE" ] && ! [ -O "$fileDE"  ] ; then
