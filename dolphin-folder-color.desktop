@@ -18,7 +18,7 @@ X-KDE-Submenu[de]=Farbe Ordner
 X-KDE-Submenu[pl]=Kolor katalogu
 X-KDE-Priority=TopLevel
 
-Actions=custom-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-magenta;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-downloads;folder-image;folder-sound;folder-video;folder-txt;folder-network;folder-development;folder-bookmark;folder-favorites;
+Actions=custom-icon;random-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-magenta;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-downloads;folder-image;folder-sound;folder-video;folder-txt;folder-network;folder-development;folder-bookmark;folder-favorites;
 
 [Desktop Action custom-icon]
 Name=Custom icon
@@ -31,6 +31,17 @@ Name[de]=Custom Icon
 Name[pl]=Personalizacja ikon
 Icon=colors-chromared
 Exec=dolphin-folder-color.sh custom %U
+
+[Desktop Action random-icon]
+Name=Random
+Name[es]=Aleatorio
+Name[fr]=aleatória
+Name[it]=Casuale
+Name[pt]=Aleatória
+Name[pt_BR]=Aleatória
+Name[de]=Zufällig
+Name[pl]=Losowy
+Exec=dolphin-folder-color.sh --random %U
 
 #########################################
 

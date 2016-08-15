@@ -15,53 +15,81 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version 1.6
-
-### USAGE:
-# dolphin-folder-color.sh <ICON_NAME> [PATH1] [PATH2] ...
-# <ICON_NAME>: is a color or any other folder-$icon or freedesktop icon
-#########################################################################
+# Version 1.7
 
 shopt -s extglob
 shopt -s expand_aliases
 
-icon=${1:?'Name or color icon is not present'} ; shift
-desktopEntry='.directory'
+declare colors=(black blue brown cyan green grey magenta orange red violet yellow\
+                activities bookmark    development documents download            \
+                downloads  favorites   html        image     image-people        \
+                images     important   locked      network   print               \
+                public     publicshare remote      sound     tar                 \
+                temp       templates   text txt    video     videos       default)
 
-${TMPDIR:="/tmp"}
-tmp=$TMPDIR/$desktopEntry-$PPID
+declare option=${1:?"Use `basename $0` -h to get a help"}
+declare desktopEntry='.directory'
+declare tmp=${TMPDIR:="/tmp"}/$desktopEntry-$PPID
+declare icon
+declare random=false
 
 if which kiconfinder5 &>/dev/null ; then
 	alias kiconfinder="kiconfinder5"
 fi
 
-case $icon in
-	default | black   | blue   | brown    |\
-	cyan    | green   | grey   | orange   |\
-	red     | magenta | violet | yellow   |\
-	bookmark   | remote | tar   | sound  |\
-	temp | txt | text   | video | videos |\
-	activities | development  | documents    | html   |\
-	favorites  | download     | downloads    | locked |\
-	image      | images       | image-people | important |\
-	network    | templates    | public       | publicshare | print )
-
-		if [ $icon != 'default' ] ; then
-			icon="folder-$icon"
-		fi
-	;; custom )
-		icon=$(kdialog --caption 'Folder Color' --title 'Select Icon' \
-			--geticon Desktop Place 2> /dev/null)
-		if [ ${#icon} = 0 ]
-			then exit
-		fi
-	;; *)
-		if ! [ -f $(kiconfinder $icon) ] ; then
-			icon="default"
-		fi
-esac
+if [[ "$1" == @(--help|-h) ]] ; then
+        echo -e \
+        "Usage:\n" \
+        "  `basename $0` <color>  [FOLDER1 FOLDER2 ...]\n"\
+        "  `basename $0` <option> [FOLDER1 FOLDER2 ...]\n"\
+        "\n"\
+        "  Colors:                 black blue brown cyan green grey magenta orange red violet yellow\n"\
+        "                          activities bookmark    development documents download\n"\
+        "                          downloads  favorites   html        image     image-people\n"\
+        "                          images     important   locked      network   print\n"\
+        "                          public     publicshare remote      sound     tar\n"\
+        "                          temp       templates   text txt    video     videos        default\n"\
+        "\n"\
+        "  --path, -p <icon|path>  Absolute path of the icon or a name of icon, e.g. /usr/share/pixmaps/vlc.png or vlc\n"\
+        "\n"\
+        "  --custom, -c            Opens a selection window icons\n"\
+        "\n"\
+        "  --random, -r            Colour the set of folders with any icon between:\n"\
+        "                          black blue brown cyan green grey magenta orange red violet yellow\n"\
+        "\n"\
+        "  --help, -h              Show this help"
+        exit
+fi
 
 
+if [[ "$1" == @(--path|-p) ]] ; then
+        icon="$2"
+        if ! [ -r "$(kiconfinder "$icon")" ] ; then
+                echo "icon '${icon:=null}' not found"
+                exit
+        fi
+        shift
+elif [[ "$1" == @(--custom|-c) ]] ; then
+        icon=$(kdialog --caption 'Folder Color' --title 'Select Icon' \
+                --geticon Desktop Place 2> /dev/null)
+
+        if [[ ${#icon} = 0 ]] ; then
+                exit
+        fi
+elif [[ "$1" == @(--random|-r) ]] ; then
+        random=true
+
+elif [[ "^(${colors[@]})" =~ "$1" ]] ; then
+        if [[ $1 != 'default' ]] ; then
+                icon="folder-$1"
+        fi
+else
+        echo "Error: Use `basename $0` -h to get a help"
+        exit
+
+fi
+
+shift
 for dir in "$@" ; do
 
 	if [ -d "$dir" ] ; then
@@ -74,27 +102,34 @@ for dir in "$@" ; do
 
 		tag=$(grep 'Icon=.*' $desktopEntry)
 		header=$(grep '\[Desktop Entry\]' $desktopEntry)
+
+                if $random ; then
+                        icon="folder-${colors[$(($RANDOM % 11))]}"
+                fi
+
 		icon=${icon//+(\/)/\\/} ##syntax ${parameter//pattern/string}
 
-		if [ $icon = 'default' ] ; then
+		if [[ $icon = 'default' ]] ; then
 			sed '/Icon=.*/d' $desktopEntry > $tmp
 
 			pattern='\[Desktop Entry\][[:space:]]*[^[:alpha:]]*(\[|$)'
-			headernoTags=$(echo $(< $tmp) | grep -E $pattern )
-			if [ ${#headernoTags} != 0 ] ; then
+			headernoTags=$(echo $(< $tmp) | grep -E $pattern)
+			if [[ ${#headernoTags} != 0 ]] ; then
 				cat $tmp > $desktopEntry
 				sed '/\[Desktop Entry\]/d;/./,$!d' $desktopEntry > $tmp
 			fi
-		elif [ ${#tag} != 0 ] ; then
+
+		elif [[ ${#tag} != 0 ]] ; then
 			sed "s/Icon=.*/Icon=$icon/" $desktopEntry > $tmp
 
-		elif [ ${#header} != 0 ] ; then
+		elif [[ ${#header} != 0 ]] ; then
 			sed "s/\[Desktop Entry\]/[Desktop Entry]\nIcon=$icon/" $desktopEntry > $tmp
 
 		else
 			sed "1i[Desktop Entry]\nIcon=$icon\n" $desktopEntry > $tmp
 
 		fi
+
 		cat $tmp > $desktopEntry
 		rm $tmp
 
@@ -112,7 +147,7 @@ service='org.kde.dolphin-'
 reloaded=false
 
 for pid in $(pidof "dolphin") ; do
-	if [ $pid = $PPID ] ; then
+	if [[ $pid = $PPID ]] ; then
 		qdbus $service$PPID $method &> /dev/null & disown -h
 		reloaded=true
 	fi
@@ -123,4 +158,3 @@ if ! $reloaded ; then
 		qdbus $service$pid $method &> /dev/null & disown -h
 	done
 fi
-###
