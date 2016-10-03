@@ -32,7 +32,7 @@ Name[de]=Custom Icon
 Name[pl]=Personalizacja ikon
 Name[ru]=Пользовательская иконка
 Icon=colors-chromared
-Exec=dolphin-folder-color.sh custom %U
+Exec=dolphin-folder-color.sh --custom %U
 
 [Desktop Action random-icon]
 Name=Random
