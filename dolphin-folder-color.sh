@@ -34,7 +34,7 @@ declare icon
 declare random=false
 
 if which kiconfinder5 &>/dev/null ; then
-	alias kiconfinder="kiconfinder5"
+    alias kiconfinder="kiconfinder5"
 fi
 
 if [[ "$1" == @(--help|-h) ]] ; then
@@ -93,54 +93,54 @@ fi
 shift
 for dir in "$@" ; do
 
-	if [ -d "$dir" ] ; then
-		cd "$dir"
-	else
-		echo "Directory not found: $dir" ; continue
-	fi
+    if [ -d "$dir" ] ; then
+        cd "$dir"
+    else
+        echo "Directory not found: $dir" ; continue
+    fi
 
-	if [ -w $desktopEntry ] && [ -n "$(< $desktopEntry)" ] ; then
+    if [ -w $desktopEntry ] && [ -n "$(< $desktopEntry)" ] ; then
 
-		tag=$(grep 'Icon=.*' $desktopEntry)
-		header=$(grep '\[Desktop Entry\]' $desktopEntry)
+        tag=$(grep 'Icon=.*' $desktopEntry)
+        header=$(grep '\[Desktop Entry\]' $desktopEntry)
 
                 if $random ; then
-						rand=$(od -An -N2 -i /dev/random)
+                        rand=$(od -An -N2 -i /dev/random)
                         icon="folder-${colors[$((rand % 11))]}"
                 fi
 
-		icon=${icon//+(\/)/\\/} ##syntax ${parameter//pattern/string}
+        icon=${icon//+(\/)/\\/} ##syntax ${parameter//pattern/string}
 
-		if [[ $icon = 'default' ]] ; then
-			sed '/Icon=.*/d' $desktopEntry > $tmp
+        if [[ $icon = 'default' ]] ; then
+            sed '/Icon=.*/d' $desktopEntry > $tmp
 
-			pattern='\[Desktop Entry\][[:space:]]*[^[:alpha:]]*(\[|$)'
-			headernoTags=$(echo $(< $tmp) | grep -E $pattern)
-			if [[ ${#headernoTags} != 0 ]] ; then
-				cat $tmp > $desktopEntry
-				sed '/\[Desktop Entry\]/d;/./,$!d' $desktopEntry > $tmp
-			fi
+            pattern='\[Desktop Entry\][[:space:]]*[^[:alpha:]]*(\[|$)'
+            headernoTags=$(echo $(< $tmp) | grep -E $pattern)
+            if [[ ${#headernoTags} != 0 ]] ; then
+                cat $tmp > $desktopEntry
+                sed '/\[Desktop Entry\]/d;/./,$!d' $desktopEntry > $tmp
+            fi
 
-		elif [[ ${#tag} != 0 ]] ; then
-			sed "s/Icon=.*/Icon=$icon/" $desktopEntry > $tmp
+        elif [[ ${#tag} != 0 ]] ; then
+            sed "s/Icon=.*/Icon=$icon/" $desktopEntry > $tmp
 
-		elif [[ ${#header} != 0 ]] ; then
-			sed "s/\[Desktop Entry\]/[Desktop Entry]\nIcon=$icon/" $desktopEntry > $tmp
+        elif [[ ${#header} != 0 ]] ; then
+            sed "s/\[Desktop Entry\]/[Desktop Entry]\nIcon=$icon/" $desktopEntry > $tmp
 
-		else
-			sed "1i[Desktop Entry]\nIcon=$icon\n" $desktopEntry > $tmp
+        else
+            sed "1i[Desktop Entry]\nIcon=$icon\n" $desktopEntry > $tmp
 
-		fi
+        fi
 
-		cat $tmp > $desktopEntry
-		rm $tmp
+        cat $tmp > $desktopEntry
+        rm $tmp
 
-	elif [[ $icon != 'default' ]] ; then
-		echo -e "[Desktop Entry]\nIcon=$icon" > $desktopEntry
-	fi
+    elif [[ $icon != 'default' ]] ; then
+        echo -e "[Desktop Entry]\nIcon=$icon" > $desktopEntry
+    fi
 
-	## Return to parent directory
-	cd ..
+    ## Return to parent directory
+    cd ..
 done
 
 # Reload the Dolphin windows with qdbus
@@ -149,14 +149,14 @@ service='org.kde.dolphin-'
 reloaded=false
 
 for pid in $(pidof "dolphin") ; do
-	if [[ $pid = $PPID ]] ; then
-		qdbus $service$PPID $method &> /dev/null & disown -h
-		reloaded=true
-	fi
+    if [[ $pid = $PPID ]] ; then
+        qdbus $service$PPID $method &> /dev/null & disown -h
+        reloaded=true
+    fi
 done
 
 if ! $reloaded ; then
-	for pid in $(pidof "dolphin") ; do
-		qdbus $service$pid $method &> /dev/null & disown -h
-	done
+    for pid in $(pidof "dolphin") ; do
+        qdbus $service$pid $method &> /dev/null & disown -h
+    done
 fi
