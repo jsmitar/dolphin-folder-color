@@ -38,7 +38,7 @@ if which kiconfinder5 &>/dev/null ; then
 fi
 
 if [[ "$1" == @(--help|-h) ]] ; then
-		cat <<-EOF
+        cat <<-EOF
     Usage:
     `basename $0` <color>  [FOLDER1 FOLDER2 ...]
     `basename $0` <option> [FOLDER1 FOLDER2 ...]
