@@ -38,26 +38,27 @@ if which kiconfinder5 &>/dev/null ; then
 fi
 
 if [[ "$1" == @(--help|-h) ]] ; then
-        echo -e \
-        "Usage:\n" \
-        "  `basename $0` <color>  [FOLDER1 FOLDER2 ...]\n"\
-        "  `basename $0` <option> [FOLDER1 FOLDER2 ...]\n"\
-        "\n"\
-        "  Colors:                 black blue brown cyan green grey magenta orange red violet yellow\n"\
-        "                          activities bookmark    development documents download\n"\
-        "                          downloads  favorites   html        image     image-people\n"\
-        "                          images     important   locked      network   print\n"\
-        "                          public     publicshare remote      sound     tar\n"\
-        "                          temp       templates   text txt    video     videos        default\n"\
-        "\n"\
-        "  --path, -p <icon|path>  Absolute path of the icon or a name of icon, e.g. /usr/share/pixmaps/vlc.png or vlc\n"\
-        "\n"\
-        "  --custom, -c            Opens a selection window icons\n"\
-        "\n"\
-        "  --random, -r            Colour the set of folders with any icon between:\n"\
-        "                          black blue brown cyan green grey magenta orange red violet yellow\n"\
-        "\n"\
-        "  --help, -h              Show this help"
+		cat <<-EOF
+    Usage:
+    `basename $0` <color>  [FOLDER1 FOLDER2 ...]
+    `basename $0` <option> [FOLDER1 FOLDER2 ...]
+
+    Colors:                 black blue brown cyan green grey magenta orange red violet yellow
+                            activities bookmark    development documents download
+                            downloads  favorites   html        image     image-people
+                            images     important   locked      network   print
+                            public     publicshare remote      sound     tar
+                            temp       templates   text txt    video     videos        default
+
+    --path, -p <icon|path>  Absolute path of the icon or a name of icon, e.g. /usr/share/pixmaps/vlc.png or vlc
+
+    --custom, -c            Opens a selection window icons
+
+    --random, -r            Colour the set of folders with any icon between:
+                            black blue brown cyan green grey magenta orange red violet yellow
+
+    --help, -h              Show this help
+EOF
         exit
 fi
 
@@ -104,7 +105,8 @@ for dir in "$@" ; do
 		header=$(grep '\[Desktop Entry\]' $desktopEntry)
 
                 if $random ; then
-                        icon="folder-${colors[$(($RANDOM % 11))]}"
+						rand=$(od -An -N2 -i /dev/random)
+                        icon="folder-${colors[$((rand % 11))]}"
                 fi
 
 		icon=${icon//+(\/)/\\/} ##syntax ${parameter//pattern/string}
