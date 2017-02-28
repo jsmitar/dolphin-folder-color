@@ -19,7 +19,7 @@ X-KDE-Submenu[pl]=Kolor katalogu
 X-KDE-Submenu[ru]=Раскраска папки
 X-KDE-Priority=TopLevel
 
-Actions=custom-icon;random-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-magenta;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-downloads;folder-image;folder-sound;folder-video;folder-txt;folder-network;folder-development;folder-bookmark;folder-favorites;
+Actions=custom-icon;random-icon;_SEPARATOR_;folder-default;folder-red;folder-orange;folder-yellow;folder-green;folder-cyan;folder-blue;folder-magenta;folder-violet;folder-brown;folder-grey;folder-black;_SEPARATOR_;user-home;folder-documents;folder-downloads;folder-image;folder-sound;folder-video;folder-txt;folder-network;folder-development;folder-bookmark;folder-favorites;
 
 [Desktop Action custom-icon]
 Name=Custom icon
@@ -61,18 +61,31 @@ Name[ru]=По умолчанию
 Icon=folder
 Exec=dolphin-folder-color.sh default %U
 
-[Desktop Action folder-grey]
-Name=Grey
-Name[es]=Gris
-Name[fr]=Gris
-Name[it]=Grigio
-Name[pt]=Cinzento
-Name[pt_BR]=Cinza
-Name[de]=Grau
-Name[pl]=Szary
-Name[ru]=Серый
-Icon=folder-grey
-Exec=dolphin-folder-color.sh grey %U
+[Desktop Action folder-red]
+Name=Red
+Name[es]=Rojo
+Name[fr]=Rouge
+Name[it]=Rosso
+Name[pt]=Vermelho
+Name[pt_BR]=Vermelha
+Name[de]=Rot
+Name[pl]=Czerwony
+Name[ru]=Красный
+Icon=folder-red
+Exec=dolphin-folder-color.sh red %U
+
+[Desktop Action folder-orange]
+Name=Orange
+Name[es]=Naranja
+Name[fr]=Orange
+Name[it]=Arancione
+Name[pt]=Laranja
+Name[pt_BR]=Laranja
+Name[de]=Orange
+Name[pl]=Pomarańczowy
+Name[ru]=Оранжевый
+Icon=folder-orange
+Exec=dolphin-folder-color.sh orange %U
 
 [Desktop Action folder-yellow]
 Name=Yellow
@@ -86,6 +99,19 @@ Name[pl]=Żółty
 Name[ru]=Жёлтый
 Icon=folder-yellow
 Exec=dolphin-folder-color.sh yellow %U
+
+[Desktop Action folder-green]
+Name=Green
+Name[es]=Verde
+Name[fr]=Vert
+Name[it]=Verde
+Name[pt]=Verde
+Name[pt_BR]=Verde
+Name[de]=Grün
+Name[pl]=Zielony
+Name[ru]=Зелёный
+Icon=folder-green
+Exec=dolphin-folder-color.sh green %U
 
 [Desktop Action folder-cyan]
 Name=Cyan
@@ -112,45 +138,6 @@ Name[pl]=Niebieski
 Name[ru]=Синий
 Icon=folder-blue
 Exec=dolphin-folder-color.sh blue %U
-
-[Desktop Action folder-green]
-Name=Green
-Name[es]=Verde
-Name[fr]=Vert
-Name[it]=Verde
-Name[pt]=Verde
-Name[pt_BR]=Verde
-Name[de]=Grün
-Name[pl]=Zielony
-Name[ru]=Зелёный
-Icon=folder-green
-Exec=dolphin-folder-color.sh green %U
-
-[Desktop Action folder-orange]
-Name=Orange
-Name[es]=Naranja
-Name[fr]=Orange
-Name[it]=Arancione
-Name[pt]=Laranja
-Name[pt_BR]=Laranja
-Name[de]=Orange
-Name[pl]=Pomarańczowy
-Name[ru]=Оранжевый
-Icon=folder-orange
-Exec=dolphin-folder-color.sh orange %U
-
-[Desktop Action folder-red]
-Name=Red
-Name[es]=Rojo
-Name[fr]=Rouge
-Name[it]=Rosso
-Name[pt]=Vermelho
-Name[pt_BR]=Vermelha
-Name[de]=Rot
-Name[pl]=Czerwony
-Name[ru]=Красный
-Icon=folder-red
-Exec=dolphin-folder-color.sh red %U
 
 [Desktop Action folder-magenta]
 Name=Magenta
@@ -190,6 +177,19 @@ Name[pl]=Brązowy
 Name[ru]=Коричневый
 Icon=folder-brown
 Exec=dolphin-folder-color.sh brown %U
+
+[Desktop Action folder-grey]
+Name=Grey
+Name[es]=Gris
+Name[fr]=Gris
+Name[it]=Grigio
+Name[pt]=Cinzento
+Name[pt_BR]=Cinza
+Name[de]=Grau
+Name[pl]=Szary
+Name[ru]=Серый
+Icon=folder-grey
+Exec=dolphin-folder-color.sh grey %U
 
 [Desktop Action folder-black]
 Name=Black
