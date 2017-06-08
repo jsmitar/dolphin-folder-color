@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Version 1.7
+# Version 1.9
 
 shopt -s extglob
 shopt -s expand_aliases
