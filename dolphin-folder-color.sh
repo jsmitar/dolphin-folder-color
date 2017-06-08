@@ -71,8 +71,8 @@ if [[ "$1" == @(--path|-p) ]] ; then
         fi
         shift
 elif [[ "$1" == @(--custom|-c) ]] ; then
-        icon=$(kdialog --caption 'Folder Color' --title 'Select Icon' \
-                --geticon Desktop Place 2> /dev/null)
+    icon=$(kdialog --title 'Select Icon' \
+           --geticon Desktop Place 2> /dev/null)
 
         if [[ ${#icon} = 0 ]] ; then
                 exit

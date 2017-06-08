@@ -30,7 +30,7 @@ exit=${exit:-"continue"}
 declare title='Folder Color'
 declare user=$(basename $HOME)
 declare combobox0=('⚫ Select your version of Dolphin:' 'Plasma 5' 'KDE4')
-declare combobox1=('⚫ Install on:' 'root' $user)
+declare combobox1=('⚫ Install in:' 'root' $user)
 declare rect='330x130'
 declare prefix='/usr'
 
@@ -59,13 +59,13 @@ authorize() {
     elif [ `which kdesudo` ] ; then
         kdesudo -i folder-red -n -d -c $0 finish "$choice" & disown -h
     else
-        kdialog --caption ' ' --title dolphin-folder-color --error 'kdesu not found.'
+        kdialog --title dolphin-folder-color --error 'kdesu not found.'
         exit 1
     fi
 }
 
 if [ $exit == 'continue' ] ; then
-    choice=$(kdialog --caption Dolphin \
+    choice=$(kdialog \
         --title "$title" \
         --combobox "${combobox0[@]}" \
         --default "${combobox0[1]}" \
@@ -87,7 +87,7 @@ else
 fi
 
 if [ $exit != "finish" ] && [ $UID != 0 ] ; then
-    kdg=$(kdialog --caption Dolphin \
+    kdg=$(kdialog \
         --title "$title" \
         --combobox "${combobox1[@]}" \
         --default $user \
@@ -168,4 +168,4 @@ if $succesInstall ; then
 else
     msg="Installation failed!"
 fi
-kdialog --caption Dolphin --title "$title" --msgbox "$msg" --geometry $rect
+kdialog --title "$title" --msgbox "$msg" --geometry $rect

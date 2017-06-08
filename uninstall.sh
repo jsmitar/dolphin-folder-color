@@ -38,13 +38,13 @@ authorize() {
     elif [ `which kdesudo` ] ; then
         kdesudo -i folder-red -n -d -c $0 finish $choice & disown -h
     else
-        kdialog --caption 'Error' --title dolphin-folder-color --error 'kdesu not found'
+        kdialog --title dolphin-folder-color --error 'kdesu not found'
         exit 1
     fi
 }
 
 if [[ $exit == 'continue' ]] ; then
-    choice=$(kdialog --caption Dolphin \
+    choice=$(kdialog \
         --title "$title" \
         --combobox "${combobox0[@]}" \
         --default "${combobox0[1]}" \
@@ -109,4 +109,4 @@ if $succesUninstall ; then
 else
     msg="Uninstallation failed!"
 fi
-kdialog --caption Dolphin --title "$title" --msgbox "$msg" --geometry $rect
+kdialog --title "$title" --msgbox "$msg" --geometry $rect
