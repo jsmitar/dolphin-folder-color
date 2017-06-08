@@ -32,13 +32,17 @@ declare desktopEntry='.directory'
 declare tmp=${TMPDIR:="/tmp"}/$desktopEntry-$PPID
 declare icon
 declare random=false
+declare rand_colors=(${colors[@]:0:11})
+
+# avoid warnings
+unset GREP_OPTIONS
 
 if which kiconfinder5 &>/dev/null ; then
     alias kiconfinder="kiconfinder5"
 fi
 
 if [[ "$1" == @(--help|-h) ]] ; then
-        cat <<-EOF
+    cat <<-EOF
     Usage:
     `basename $0` <color>  [FOLDER1 FOLDER2 ...]
     `basename $0` <option> [FOLDER1 FOLDER2 ...]
@@ -59,36 +63,50 @@ if [[ "$1" == @(--help|-h) ]] ; then
 
     --help, -h              Show this help
 EOF
-        exit
+    exit
 fi
 
 
 if [[ "$1" == @(--path|-p) ]] ; then
-        icon="$2"
-        if ! [ -r "$(kiconfinder "$icon")" ] ; then
-                echo "icon '${icon:=null}' not found"
-                exit
-        fi
-        shift
+    icon="$2"
+    if ! [ -r "$(kiconfinder "$icon")" ] ; then
+        echo "icon '${icon:=null}' not found"
+        exit
+    fi
+    shift
 elif [[ "$1" == @(--custom|-c) ]] ; then
     icon=$(kdialog --title 'Select Icon' \
            --geticon Desktop Place 2> /dev/null)
 
-        if [[ ${#icon} = 0 ]] ; then
-                exit
-        fi
+    if [[ ${#icon} = 0 ]] ; then
+        exit
+    fi
 elif [[ "$1" == @(--random|-r) ]] ; then
-        random=true
+    random=true
 
 elif [[ "^(${colors[@]})" =~ "$1" ]] ; then
-        if [[ $1 != 'default' ]] ; then
-                icon="folder-$1"
-        fi
+    if [[ $1 != 'default' ]] ; then
+        icon="folder-$1"
+    fi
 else
-        echo "Error: Use `basename $0` -h to get a help"
-        exit
+    echo "Error: Use `basename $0` -h to get a help"
+    exit
 
 fi
+
+
+rand_color() {
+    rand=$(od -An -N2 -i /dev/random)
+    pos=$((rand % ${#rand_colors[@]}))
+    icon="folder-${rand_colors[pos]}"
+
+    unset rand_colors[pos]
+    rand_colors=(${rand_colors[@]})
+
+    if [[ ${#rand_colors[@]} == 0 ]] ; then
+        rand_colors=(${colors[@]:0:11})
+    fi
+}
 
 shift
 for dir in "$@" ; do
@@ -104,10 +122,9 @@ for dir in "$@" ; do
         tag=$(grep 'Icon=.*' $desktopEntry)
         header=$(grep '\[Desktop Entry\]' $desktopEntry)
 
-                if $random ; then
-                        rand=$(od -An -N2 -i /dev/random)
-                        icon="folder-${colors[$((rand % 11))]}"
-                fi
+        if $random ; then
+            rand_color
+        fi
 
         icon=${icon//+(\/)/\\/} ##syntax ${parameter//pattern/string}
 
