@@ -59,7 +59,7 @@ Name[de]=Default
 Name[pl]=Domyślny
 Name[ru]=По умолчанию
 Icon=folder-folder
-Exec=dolphin-folder-color -c default %U
+Exec=dolphin-folder-color -c default -s default %U
 
 [Desktop Action blue]
 Name=Blue
