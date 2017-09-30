@@ -2,8 +2,8 @@
 Name=Folder Color
 
 Encoding=UTF-8
-Version=1.9
-Icon=folder-cyan
+Version=2.0
+Icon=colors-chromablue
 Type=Service
 ServiceTypes=KonqPopupMenu/Plugin
 MimeType=inode/directory;
@@ -19,7 +19,7 @@ X-KDE-Submenu[pl]=Kolor katalogu
 X-KDE-Submenu[ru]=Цвет папки
 X-KDE-Priority=TopLevel
 
-Actions=custom-icon;random-icon;_SEPARATOR_;folder-default;folder-grey;folder-yellow;folder-cyan;folder-blue;folder-green;folder-orange;folder-red;folder-magenta;folder-violet;folder-brown;folder-black;_SEPARATOR_;user-home;folder-documents;folder-download;folder-images;folder-sound;folder-videos;folder-text;folder-network;folder-development;folder-bookmark;folder-favorites;
+Actions=custom-icon;random-icon;_SEPARATOR_;default;cyan;blue;green;yellow;orange;red;magenta;violet;brown;grey;black;_SEPARATOR_;user-home;documents;download;pictures;music;videos;development;favorites;
 
 [Desktop Action custom-icon]
 Name=Custom icon
@@ -32,7 +32,7 @@ Name[de]=Custom Icon
 Name[pl]=Personalizacja ikon
 Name[ru]=Пользовательская иконка
 Icon=colors-chromared
-Exec=dolphin-folder-color.sh --custom %U
+Exec=dolphin-folder-color -o %U
 
 [Desktop Action random-icon]
 Name=Random
@@ -44,11 +44,11 @@ Name[pt_BR]=Aleatória
 Name[de]=Zufällig
 Name[pl]=Losowy
 Name[ru]=Произвольный цвет
-Exec=dolphin-folder-color.sh --random %U
+Exec=dolphin-folder-color -r %U
 
 #########################################
 
-[Desktop Action folder-default]
+[Desktop Action default]
 Name=Default
 Name[es]=Predeterminado
 Name[fr]=Défaut
@@ -58,49 +58,10 @@ Name[pt_BR]=Padrão
 Name[de]=Default
 Name[pl]=Domyślny
 Name[ru]=По умолчанию
-Icon=folder
-Exec=dolphin-folder-color.sh default %U
+Icon=folder-folder
+Exec=dolphin-folder-color -c default %U
 
-[Desktop Action folder-grey]
-Name=Grey
-Name[es]=Gris
-Name[fr]=Gris
-Name[it]=Grigio
-Name[pt]=Cinzento
-Name[pt_BR]=Cinza
-Name[de]=Grau
-Name[pl]=Szary
-Name[ru]=Серый
-Icon=folder-grey
-Exec=dolphin-folder-color.sh grey %U
-
-[Desktop Action folder-yellow]
-Name=Yellow
-Name[es]=Amarillo
-Name[fr]=Jaune
-Name[it]=Giallo
-Name[pt]=Amarelo
-Name[pt_BR]=Amarela
-Name[de]=Gelb
-Name[pl]=Żółty
-Name[ru]=Жёлтый
-Icon=folder-yellow
-Exec=dolphin-folder-color.sh yellow %U
-
-[Desktop Action folder-cyan]
-Name=Cyan
-Name[es]=Cian
-Name[fr]=Cyan
-Name[it]=Ciano
-Name[pt]=Ciano
-Name[pt_BR]=Ciano
-Name[de]=Cyan
-Name[pl]=Cyjan
-Name[ru]=Голубой
-Icon=folder-cyan
-Exec=dolphin-folder-color.sh cyan %U
-
-[Desktop Action folder-blue]
+[Desktop Action blue]
 Name=Blue
 Name[es]=Azul
 Name[fr]=Bleu
@@ -111,9 +72,22 @@ Name[de]=Blau
 Name[pl]=Niebieski
 Name[ru]=Синий
 Icon=folder-blue
-Exec=dolphin-folder-color.sh blue %U
+Exec=dolphin-folder-color -c blue %U
 
-[Desktop Action folder-green]
+[Desktop Action cyan]
+Name=Cyan
+Name[es]=Cian
+Name[fr]=Cyan
+Name[it]=Ciano
+Name[pt]=Ciano
+Name[pt_BR]=Ciano
+Name[de]=Cyan
+Name[pl]=Cyjan
+Name[ru]=Голубой
+Icon=folder-cyan
+Exec=dolphin-folder-color -c cyan %U
+
+[Desktop Action green]
 Name=Green
 Name[es]=Verde
 Name[fr]=Vert
@@ -124,9 +98,22 @@ Name[de]=Grün
 Name[pl]=Zielony
 Name[ru]=Зелёный
 Icon=folder-green
-Exec=dolphin-folder-color.sh green %U
+Exec=dolphin-folder-color -c green %U
 
-[Desktop Action folder-orange]
+[Desktop Action yellow]
+Name=Yellow
+Name[es]=Amarillo
+Name[fr]=Jaune
+Name[it]=Giallo
+Name[pt]=Amarelo
+Name[pt_BR]=Amarela
+Name[de]=Gelb
+Name[pl]=Żółty
+Name[ru]=Жёлтый
+Icon=folder-yellow
+Exec=dolphin-folder-color -c yellow %U
+
+[Desktop Action orange]
 Name=Orange
 Name[es]=Naranja
 Name[fr]=Orange
@@ -137,9 +124,9 @@ Name[de]=Orange
 Name[pl]=Pomarańczowy
 Name[ru]=Оранжевый
 Icon=folder-orange
-Exec=dolphin-folder-color.sh orange %U
+Exec=dolphin-folder-color -c orange %U
 
-[Desktop Action folder-red]
+[Desktop Action red]
 Name=Red
 Name[es]=Rojo
 Name[fr]=Rouge
@@ -150,9 +137,9 @@ Name[de]=Rot
 Name[pl]=Czerwony
 Name[ru]=Красный
 Icon=folder-red
-Exec=dolphin-folder-color.sh red %U
+Exec=dolphin-folder-color -c red %U
 
-[Desktop Action folder-magenta]
+[Desktop Action magenta]
 Name=Magenta
 Name[es]=Magenta
 Name[fr]=Magenta
@@ -163,9 +150,9 @@ Name[de]=Magenta
 Name[pl]=Fuksyna
 Name[ru]=Пурпурный
 Icon=folder-magenta
-Exec=dolphin-folder-color.sh magenta %U
+Exec=dolphin-folder-color -c magenta %U
 
-[Desktop Action folder-violet]
+[Desktop Action violet]
 Name=Violet
 Name[es]=Violeta
 Name[fr]=Violet
@@ -176,9 +163,9 @@ Name[de]=Violett
 Name[pl]=Fioletowy
 Name[ru]=Фиолетовый
 Icon=folder-violet
-Exec=dolphin-folder-color.sh violet %U
+Exec=dolphin-folder-color -c violet %U
 
-[Desktop Action folder-brown]
+[Desktop Action brown]
 Name=Brown
 Name[es]=Marrón
 Name[fr]=Brun
@@ -189,9 +176,22 @@ Name[de]=Braun
 Name[pl]=Brązowy
 Name[ru]=Коричневый
 Icon=folder-brown
-Exec=dolphin-folder-color.sh brown %U
+Exec=dolphin-folder-color -c brown %U
 
-[Desktop Action folder-black]
+[Desktop Action grey]
+Name=Grey
+Name[es]=Gris
+Name[fr]=Gris
+Name[it]=Grigio
+Name[pt]=Cinzento
+Name[pt_BR]=Cinza
+Name[de]=Grau
+Name[pl]=Szary
+Name[ru]=Серый
+Icon=folder-grey
+Exec=dolphin-folder-color -c grey %U
+
+[Desktop Action black]
 Name=Black
 Name[es]=Negro
 Name[fr]=Noir
@@ -202,7 +202,7 @@ Name[de]=Schwarz
 Name[pl]=Czarny
 Name[ru]=Чёрный
 Icon=folder-black
-Exec=dolphin-folder-color.sh black %U
+Exec=dolphin-folder-color -c black %U
 
 #########################################
 
@@ -216,10 +216,10 @@ Name[pt_BR]=Home
 Name[de]=Home
 Name[pl]=Katalog domowy
 Name[ru]=Домашняя папка
-Icon=user-home
-Exec=dolphin-folder-color.sh user-home %U
+Icon=folder-user-home
+Exec=dolphin-folder-color -s desktop %U
 
-[Desktop Action folder-documents]
+[Desktop Action documents]
 Name=Documents
 Name[es]=Documentos
 Name[fr]=Documents
@@ -230,9 +230,9 @@ Name[de]=Unterlagen
 Name[pl]=Dokumenty
 Name[ru]=Документы
 Icon=folder-documents
-Exec=dolphin-folder-color.sh documents %U
+Exec=dolphin-folder-color -s documents %U
 
-[Desktop Action folder-download]
+[Desktop Action download]
 Name=Downloads
 Name[es]=Descargas
 Name[fr]=Téléchargements
@@ -243,9 +243,9 @@ Name[de]=Downloads
 Name[pl]=Pobrane
 Name[ru]=Загрузки
 Icon=folder-download
-Exec=dolphin-folder-color.sh download %U
+Exec=dolphin-folder-color -s download %U
 
-[Desktop Action folder-images]
+[Desktop Action pictures]
 Name=Image
 Name[es]=Imágenes
 Name[fr]=Image
@@ -256,9 +256,9 @@ Name[de]=Bild
 Name[pl]=Obrazy
 Name[ru]=Изображения
 Icon=folder-images
-Exec=dolphin-folder-color.sh images %U
+Exec=dolphin-folder-color -s pictures %U
 
-[Desktop Action folder-sound]
+[Desktop Action music]
 Name=Sound
 Name[es]=Sonido
 Name[fr]=Son
@@ -268,10 +268,10 @@ Name[pt_BR]=Áudio
 Name[de]=Klingen
 Name[pl]=Muzyka
 Name[ru]=Музыка
-Icon=folder-sound
-Exec=dolphin-folder-color.sh sound %U
+Icon=folder-music
+Exec=dolphin-folder-color -s music %U
 
-[Desktop Action folder-videos]
+[Desktop Action videos]
 Name=Video
 Name[es]=Video
 Name[fr]=Vidéo
@@ -282,35 +282,9 @@ Name[de]=Video
 Name[pl]=Wideo
 Name[ru]=Видео
 Icon=folder-videos
-Exec=dolphin-folder-color.sh videos %U
+Exec=dolphin-folder-color -s videos %U
 
-[Desktop Action folder-text]
-Name=Text
-Name[es]=Texto
-Name[fr]=Text
-Name[it]=Testo
-Name[pt]=Texto
-Name[pt_BR]=Texto
-name[de]=Text
-name[pl]=Tekst
-Name[ru]=Текст
-Icon=folder-text
-Exec=dolphin-folder-color.sh text %U
-
-[Desktop Action folder-network]
-Name=Network
-Name[es]=Red
-Name[fr]=Réseau
-Name[it]=Rete
-Name[pt]=Rede
-Name[pt_BR]=Rede
-Name[de]=Netzwerk
-Name[pl]=Sieć
-Name[ru]=Сеть
-Icon=folder-network
-Exec=dolphin-folder-color.sh network %U
-
-[Desktop Action folder-development]
+[Desktop Action development]
 Name=Development
 Name[es]=Desarrollo
 Name[fr]=Développement
@@ -321,22 +295,9 @@ Name[de]=Entwicklung
 Name[pl]=Programowanie
 Name[ru]=Разработка
 Icon=folder-development
-Exec=dolphin-folder-color.sh development %U
+Exec=dolphin-folder-color -s development %U
 
-[Desktop Action folder-bookmark]
-Name=Bookmark
-Name[es]=Marcadores
-Name[fr]=Bookmark
-Name[it]=Bookmark
-Name[pt]=Bookmark
-Name[pt_BR]=Marcador
-Name[de]=Bookmark
-Name[pl]=Zakładki
-Name[ru]=Закладки
-Icon=folder-bookmark
-Exec=dolphin-folder-color.sh bookmark %U
-
-[Desktop Action folder-favorites]
+[Desktop Action favorites]
 Name=Favorites
 Name[es]=Favoritos
 Name[fr]=Favoris
@@ -347,4 +308,4 @@ Name[de]=Favoriten
 Name[pl]=Ulubione
 Name[ru]=Избранное
 Icon=folder-favorites
-Exec=dolphin-folder-color.sh favorites %U
+Exec=dolphin-folder-color -s favorites %U

@@ -25,52 +25,27 @@ shopt -s extdebug
 ${exit:=$1}
 exit=${exit:-"continue"}
 
-declare foldercolorSH
-declare foldercolorDE
 declare succesUninstall=true
 declare rect='330x130'
 declare title='Folder Color'
-declare combobox0=('⚫ Select your version of Dolphin:' 'Plasma 5' 'KDE4')
+
+declare foldercolorDE='plasma5-folder-color.desktop'
+declare foldercolorSH='dolphin-folder-color'
+declare kde_config_data=`kf5-config --path data`
+declare kde_config_services=`kf5-config --path services`
 
 authorize() {
     if [ `which kdesu` ] ; then
-        kdesu   -i folder-red -n -d -c $0 finish $choice & disown -h
+        kdesu   -i folder-red -n -d -c $0 finish & disown -h
     elif [ `which kdesudo` ] ; then
-        kdesudo -i folder-red -n -d -c $0 finish $choice & disown -h
+        kdesudo -i folder-red -n -d -c $0 finish & disown -h
     else
         kdialog --title dolphin-folder-color --error 'kdesu not found'
         exit 1
     fi
 }
 
-if [[ $exit == 'continue' ]] ; then
-    choice=$(kdialog \
-        --title "$title" \
-        --combobox "${combobox0[@]}" \
-        --default "${combobox0[1]}" \
-        --geometry $rect)
-else
-    choice=$2
-fi
-
-
-if [ -z "$choice" ]
-    then exit 0
-elif [[ "$choice" == "Plasma 5" ]] ; then
-    foldercolorDE='plasma5-folder-color.desktop'
-    foldercolorSH='dolphin-folder-color.sh'
-
-    export kde_config_data=`kf5-config --path data`
-    export kde_config_services=`kf5-config --path services`
-else
-    foldercolorDE='ServiceMenus/dolphin-folder-color.desktop'
-    foldercolorSH='ServiceMenus/dolphin-folder-color.sh'
-
-    export kde_config_data=`kde4-config --localprefix`
-    export kde_config_services=`kde4-config --path services`
-fi
-
-fileSH='/usr/bin/dolphin-folder-color.sh'
+fileSH='/usr/bin/dolphin-folder-color'
 IFS=':'
 
 if [ -a $fileSH ] ; then
@@ -85,6 +60,7 @@ else
         fileSH="$pathData/$foldercolorSH"
         if [ -O "$fileSH" ] ; then
             rm "$fileSH"
+            
             if [[ $? != 0 ]] ; then
                 succesUninstall=false
             fi
@@ -105,7 +81,7 @@ for pathService in $kde_config_services ; do
 done
 
 if $succesUninstall ; then
-    msg="Uninstalled successfully."
+    msg="Uninstalled successfully"
 else
     msg="Uninstallation failed!"
 fi

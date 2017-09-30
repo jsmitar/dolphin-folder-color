@@ -29,19 +29,19 @@ exit=${exit:-"continue"}
 
 declare title='Folder Color'
 declare user=$(basename $HOME)
-declare combobox0=('⚫ Select your version of Dolphin:' 'Plasma 5' 'KDE4')
 declare combobox1=('⚫ Install in:' 'root' $user)
 declare rect='330x130'
 declare prefix='/usr'
 
-declare foldercolorDE='dolphin-folder-color.desktop'
-declare foldercolorSH='dolphin-folder-color.sh'
-declare pathService='ServiceMenus'
+declare foldercolorDE='plasma5-folder-color.desktop'
+declare foldercolorSH='dolphin-folder-color'
+declare kde_config_services=`kf5-config --path services`
+declare pathService=''
 declare pathExec='/usr/bin'
 
 setPathSH() {
     export tmp='.tmp'
-    pattern='dolphin-folder-color\.sh'
+    pattern='dolphin-folder-color'
     str="$pathExec/$foldercolorSH"
     str=${str//+(\/)/\\/}
     sed "s/$pattern/$str/" $foldercolorDE > $tmp
@@ -55,36 +55,15 @@ mk_directory() {
 
 authorize() {
     if [ `which kdesu` ] ; then
-        kdesu   -i folder-red -n -d -c $0 finish "$choice" & disown -h
+        kdesu   -i red -n -d -c $0 finish & disown -h
     elif [ `which kdesudo` ] ; then
-        kdesudo -i folder-red -n -d -c $0 finish "$choice" & disown -h
+        kdesudo -i red -n -d -c $0 finish & disown -h
     else
-        kdialog --title dolphin-folder-color --error 'kdesu not found.'
+        kdialog --title dolphin-folder-color --error 'kdesu not found'
         exit 1
     fi
 }
 
-if [ $exit == 'continue' ] ; then
-    choice=$(kdialog \
-        --title "$title" \
-        --combobox "${combobox0[@]}" \
-        --default "${combobox0[1]}" \
-        --geometry $rect)
-else
-    choice=$2
-fi
-
-
-if [ -z "$choice" ]
-    then exit 0
-elif [ "$choice" == "Plasma 5" ] ; then
-    foldercolorDE='plasma5-folder-color.desktop'
-    pathService=""
-
-    export kde_config_services=`kf5-config --path services`
-else
-    export kde_config_services=`kde4-config --path services`
-fi
 
 if [ $exit != "finish" ] && [ $UID != 0 ] ; then
     kdg=$(kdialog \
@@ -120,7 +99,7 @@ if $RootInstall ; then
 
         for p in $kde_config_services ; do
             if [ -z ${p/\/usr\/*/} ] ; then
-                pathService="$p/$pathService"
+                pathService="$p"
             fi
         done
 
@@ -128,8 +107,9 @@ if $RootInstall ; then
         mk_directory $pathService
         mk_directory $pathExec
 
+        rm "$pathService/$foldercolorSH" "$pathService/$foldercolorDE"
         kde-cp --overwrite ./$foldercolorSH "$pathExec/$foldercolorSH"
-        kde-cp --overwrite ./$tmp "$pathService/$foldercolorDE"
+        kde-cp --overwrite ./$tmp           "$pathService/$foldercolorDE"
 
         if [ $? != 0 ] ; then
             succesInstall=false
@@ -145,7 +125,7 @@ else
             then mkdir "$p"
         fi
         if [ -w "$p" ] ; then
-            pathService="$p/$pathService"
+            pathService="$p"
             pathExec="$pathService"
             break
         fi
@@ -153,9 +133,10 @@ else
 
     setPathSH
     mk_directory $pathService
-
+    
+    rm "$pathService/$foldercolorSH" "$pathService/$foldercolorDE"
     kde-cp --overwrite ./$foldercolorSH "$pathService/$foldercolorSH"
-    kde-cp --overwrite ./$tmp "$pathService/$foldercolorDE"
+    kde-cp --overwrite ./$tmp           "$pathService/$foldercolorDE"
     if [[ $? != 0 ]] ; then
         succesInstall=false
     fi
@@ -163,8 +144,8 @@ else
 fi
 
 if $succesInstall ; then
-    msg="Installed successfully.
-    \nPlease restart Dolphin to update the Service Menus."
+    msg="Installed successfully
+    \nPlease restart Dolphin to update the Service Menus"
 else
     msg="Installation failed!"
 fi
