@@ -10,5 +10,6 @@ You just need to run the script. **install.sh** with a click and restart dolphin
 ## Screenshots
 ### Service Menu
  ![Service Menu](screenshot1.png)
+ [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 ### Custom Icon
  ![Custom Icon](screenshot2.png)
