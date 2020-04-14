@@ -108,8 +108,8 @@ if $RootInstall ; then
         mk_directory $pathExec
 
         rm "$pathService/$foldercolorSH" "$pathService/$foldercolorDE"
-        kde-cp --overwrite ./$foldercolorSH "$pathExec/$foldercolorSH"
-        kde-cp --overwrite ./$tmp           "$pathService/$foldercolorDE"
+        kdecp5 --overwrite ./$foldercolorSH "$pathExec/$foldercolorSH"
+        kdecp5 --overwrite ./$tmp           "$pathService/$foldercolorDE"
 
         if [ $? != 0 ] ; then
             succesInstall=false
@@ -135,8 +135,8 @@ else
     mk_directory $pathService
     
     rm "$pathService/$foldercolorSH" "$pathService/$foldercolorDE"
-    kde-cp --overwrite ./$foldercolorSH "$pathService/$foldercolorSH"
-    kde-cp --overwrite ./$tmp           "$pathService/$foldercolorDE"
+    kdecp5 --overwrite ./$foldercolorSH "$pathService/$foldercolorSH"
+    kdecp5 --overwrite ./$tmp           "$pathService/$foldercolorDE"
     if [[ $? != 0 ]] ; then
         succesInstall=false
     fi
