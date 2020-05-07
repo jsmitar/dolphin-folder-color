@@ -129,7 +129,7 @@ setRandom() {
 }
 
 reloadDolphin() {
-    method='/dolphin/Dolphin_1/actions/reload org.qtproject.Qt.QAction.trigger'
+    method='/dolphin/Dolphin_1/actions/view_redisplay org.qtproject.Qt.QAction.trigger'
     service='org.kde.dolphin-'
     reloaded=false
 
